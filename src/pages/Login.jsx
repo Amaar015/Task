@@ -82,8 +82,8 @@ const Login = () => {
         width: "100%",
         height: "100vh",
         backgroundImage: `url(${bg})`,
-        backgroundSize: "contain",
-        backgroundPosition: { xs: "center", sm: "bottom" }, // Adjust for mobile
+        backgroundSize: "cover",
+        backgroundPosition: "bottom", // Adjust for mobile
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

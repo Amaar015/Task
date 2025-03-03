@@ -140,7 +140,7 @@ const Signup = () => {
         onSubmit={handleSubmit}
         sx={{
           height: "500px",
-          width: { sm: "450px", xs: "100%" },
+          width: { sm: "450px", xs: "90%" },
           background: "#ffffff",
           boxShadow: " rgba(0, 0, 0, 0.16) 0px 1px 4px",
           borderRadius: "10px",
