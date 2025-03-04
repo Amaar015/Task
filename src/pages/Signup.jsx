@@ -126,9 +126,10 @@ const Signup = () => {
         width: "100%",
         height: "100vh",
         backgroundImage: `url(${bg})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
+        backgroundColor: { xs: "#F7F7F9" },
+        backgroundSize: { lg: "cover", xs: "contain" },
         backgroundPosition: "bottom", // Adjust for mobile
+        backgroundRepeat: { xs: "no-repeat" },
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -139,15 +140,16 @@ const Signup = () => {
         component="form"
         onSubmit={handleSubmit}
         sx={{
-          height: "500px",
-          width: { sm: "450px", xs: "90%" },
+          height: "440px",
+          margin: "0rem 1.5rem",
+          width: { sm: "400px", xs: "100%" },
           background: "#ffffff",
           boxShadow: " rgba(0, 0, 0, 0.16) 0px 1px 4px",
           borderRadius: "10px",
-          padding: { sm: "2rem 4rem", xs: "3rem 1rem" },
+          padding: { sm: "3rem 4rem", xs: "3rem 1rem" },
           display: "flex",
           flexDirection: "column",
-          gap: "1.5rem",
+          gap: "2.5rem",
         }}
       >
         {/* Header Section */}
@@ -182,6 +184,7 @@ const Signup = () => {
           fontSize={"24px"}
           fontWeight={600}
           color="#4C4E64DE"
+          fontFamily={"Poppins"}
         >
           Welcome to Taska! 👋🏻
         </Typography>
@@ -261,6 +264,7 @@ const Signup = () => {
             fontSize: "15px",
             color: "#fff",
             height: "42px",
+            fontFamily: "Poppins",
           }}
         >
           Register
@@ -274,6 +278,7 @@ const Signup = () => {
           textAlign={"center"}
           color=" #4C4E64DE"
           letterSpacing={"2px"}
+          fontFamily={"Poppins"}
         >
           Already have an account?{" "}
           <Link

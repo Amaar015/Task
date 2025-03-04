@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  createMuiTheme,
+  ThemeProvider,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import bg from "../assets/login.png";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 const Login = () => {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -82,8 +91,10 @@ const Login = () => {
         width: "100%",
         height: "100vh",
         backgroundImage: `url(${bg})`,
-        backgroundSize: "cover",
+        backgroundColor: { xs: "#F7F7F9" },
+        backgroundSize: { lg: "cover", xs: "contain" },
         backgroundPosition: "bottom", // Adjust for mobile
+        backgroundRepeat: { xs: "no-repeat" },
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -95,6 +106,7 @@ const Login = () => {
         onSubmit={handleSubmit}
         sx={{
           height: "440px",
+          margin: "0rem 1.5rem",
           width: { sm: "400px", xs: "100%" },
           background: "#ffffff",
           boxShadow: " rgba(0, 0, 0, 0.16) 0px 1px 4px",
@@ -137,6 +149,7 @@ const Login = () => {
           fontSize={"24px"}
           fontWeight={600}
           color="#4C4E64DE"
+          fontFamily={"Poppins"}
         >
           Welcome to Taska! 👋🏻
         </Typography>
@@ -148,6 +161,7 @@ const Login = () => {
             label="Email"
             variant="outlined"
             name="email"
+            fontFamily={"Poppins"}
             value={formData.email}
             onChange={handleChange}
           />
@@ -182,6 +196,7 @@ const Login = () => {
             fontSize: "15px",
             color: "#fff",
             height: "42px",
+            fontFamily: "Poppins",
           }}
         >
           Login
@@ -193,6 +208,7 @@ const Login = () => {
           textAlign={"center"}
           color=" #4C4E64DE"
           letterSpacing={"2px"}
+          fontFamily={"Poppins"}
         >
           Don't have an account?{"  "}
           <Link
