@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Example5 = () => {
+const Dashboard = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const Example5 = () => {
   )
 }
 
-export default Example5
+export default Dashboard
