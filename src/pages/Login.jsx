@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBookOpen } from "react-icons/fa6";
 import { Box, Button, TextField, Typography } from "@mui/material";
@@ -18,6 +18,12 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (localStorage.getItem("isLoggedIn") === "true") {
+      navigate("/dashboard/createTask");
+    }
+  }, [navigate]);
 
   // Email validation regex
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -59,18 +65,20 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const login = await axios.get("https://reqres.in/api/users/2", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (login.data) {
-        localStorage.setItem("user", JSON.stringify(login.data)); // Fixed storage issue
-        navigate("/");
-        toast.success("Login Successfully");
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (!user) {
+        toast.error("User not Found!");
+        return;
+      }
+      if (
+        user.email === formData.email &&
+        user.password === formData.password
+      ) {
+        toast.success("Login Successfull");
+        localStorage.setItem("isLoggedIn", "true");
+        navigate("/dashboard/createTask");
       } else {
-        toast.error("Login Failed");
+        toast.error("Invalid Email & Password");
       }
     } catch (error) {
       toast.error("Something went wrong");

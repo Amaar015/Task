@@ -6,13 +6,12 @@ const Sidebar = () => {
   return (
     <Box
       component={"div"}
-      display={{ sm:"flex", xs:"none"}}
+      display={{ sm: "flex", xs: "none" }}
       flexDirection={"column"}
       alignItems={"center"}
       width={{ md: "250px", xs: "60px" }}
       height={"99.7%"}
       gap={"0.5rem"}
-      
     >
       <div style={{ margin: "2rem" }}>
         <Logo />
@@ -20,7 +19,7 @@ const Sidebar = () => {
       <Link
         display={"flex"}
         alignItems={"center"}
-        justifyContent={{ md:"normal",xs: "center" }}
+        justifyContent={{ md: "normal", xs: "center" }}
         width={"60%"}
         padding={{ md: "0.7rem 1rem", xs: "0.7rem 0.4rem" }}
         color="#141522"
@@ -30,7 +29,7 @@ const Sidebar = () => {
         borderRadius={"10px"}
         bgcolor="#F5F5F7"
         fontFamily={"Plus Jakarta Sans"}
-        href="/"
+        href="/dashboard/task"
       >
         <PiBookOpenTextLight style={{ fontSize: "1.5rem" }} />
         <Typography display={{ md: "inline-block", xs: "none" }}>

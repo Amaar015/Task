@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBookOpen } from "react-icons/fa6";
 import {
@@ -26,6 +26,11 @@ const Signup = () => {
     password: "",
   });
 
+  useEffect(() => {
+    if (localStorage.getItem("isLoggedIn") === "true") {
+      navigate("/dashboard/createTask");
+    }
+  }, [navigate]);
   const rolesList = [
     "MERN Stack Developer",
     "Frontend Developer",
@@ -129,7 +134,7 @@ const Signup = () => {
         }
       );
       if (register.data) {
-        console.log(register.data);
+        localStorage.setItem("user", JSON.stringify(formData));
         navigate("/login");
         toast.success("User Register Sucessfully");
       } else {

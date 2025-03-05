@@ -8,10 +8,11 @@ import { Box, createMuiTheme, ThemeProvider } from "@mui/material";
 import { ToastContainer } from "react-toastify";
 import Sidebar from "./components/Sidebar";
 import CreateTask from "./components/CreateTask";
+import Task from "./pages/Task";
 
 const Layout = () => {
   return (
-    <Box display={"flex"} width={"100%"} height={"100vh"}>
+    <Box display={"flex"} width={"100%"} height={{ xs: "100%", sm: "97vh" }}>
       <Sidebar />
       <Outlet />
     </Box>
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "createTask",
         element: <CreateTask />,
+      },
+      {
+        path: "task",
+        element: <Task />,
       },
     ],
   },

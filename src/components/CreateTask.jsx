@@ -1,7 +1,7 @@
 import {
   Box,
+  Button,
   FormControl,
-  Input,
   InputLabel,
   MenuItem,
   Select,
@@ -15,13 +15,78 @@ import red from "./../assets/red.png";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
 
 const CreateTask = () => {
   const [priority, setPriority] = useState("");
-  const [assignee, setAsignee] = useState("");
+  const [assignee, setAssignee] = useState("");
   const [status, setStatus] = useState("");
 
+  const [formData, setFormData] = useState({
+    title: "",
+    due_data: "",
+    priority: "",
+    status: "",
+    assignee: "",
+    description: "",
+  });
+  const [errors, setErrors] = useState({
+    title: "",
+    due_data: "",
+    priority: "",
+    status: "",
+    assignee: "",
+    description: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData({ ...formData, [name]: value });
+    if (name === "title") {
+      if (!/^.{3,}$/.test(value)) {
+        setErrors((prev) => ({
+          ...prev,
+          title: "Title Should be more than 3 characters",
+        }));
+      } else {
+        setErrors((prev) => ({ ...prev, title: "" }));
+      }
+    }
+    if (name === "description") {
+      setErrors((prev) => ({
+        ...prev,
+        description: value.trim() === "" ? "Description is required" : "",
+      }));
+    }
+    if (name === "priority") {
+      setErrors((prev) => ({
+        ...prev,
+        priority: value ? "" : "This field is required",
+      }));
+    }
+    if (name === "assignee") {
+      setErrors((prev) => ({
+        ...prev,
+        assignee: value ? "" : "This field is required",
+      }));
+    }
+    if (name === "status") {
+      setErrors((prev) => ({
+        ...prev,
+        status: value ? "" : "This field is required",
+      }));
+    }
+    if (name === "dueDate") {
+      setErrors((prev) => ({
+        ...prev,
+        description: value ? "" : "Description is required",
+      }));
+    }
+  };
+  const handleSubmit = () => {
+    e.preventDefault();
+    console.log(formData);
+  };
   return (
     <Box
       flexGrow={1}
@@ -29,7 +94,7 @@ const CreateTask = () => {
       display={"flex"}
       flexDirection={"column"}
     >
-      <Navbar title={"Create New  Task"} />
+      <Navbar title={"Create New Task"} />
       <Box
         sx={{
           bgcolor: "#F5F5F7",
@@ -41,284 +106,289 @@ const CreateTask = () => {
       >
         <Box
           width={{ sm: "95%", xs: "100%" }}
-          height={{ sm: "95%", xs: "100%" }}
+          height={{ sm: "90%", xs: "100%" }}
           bgcolor={"#fff"}
-          // padding={"1rem 0rem"}
+          // padding={{ xs: "1rem 0rem", sm: "0rem 0rem" }}
         >
           <Box
+            component={"form"}
+            onSubmit={handleSubmit}
             display={"flex"}
             flexWrap={"wrap"}
             alignItems={"center"}
-            padding={{ sm: "0rem 2rem", xs: "0rem 0.5rem" }}
+            padding={{ sm: "0rem 2rem", xs: "0rem 0rem" }}
           >
             <Box
               width={{ md: "45%", xs: "100%" }}
               padding={"1rem"}
-              marginTop={{ sm: "1rem", xs: "0rem" }}
               display={"flex"}
               flexDirection={"column"}
             >
               <p>Title</p>
-              <TextField label="Title" size="small" />
+              <TextField
+                label="Title"
+                size="small"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+              />
             </Box>
             <Box
               width={{ md: "45%", xs: "100%" }}
               padding={"1rem"}
-              marginTop={{ sm: "1rem", xs: "-0.5rem" }}
               display={"flex"}
               flexDirection={"column"}
             >
               <p>Due Date</p>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
+                  name="dueDate"
+                  onChange={handleChange}
+                  value={formData.due_data}
                   label="Select"
                   slotProps={{
                     textField: {
                       size: "small",
-                      placeholder: "Select", // Custom Placeholder
-                      sx: { width: "100%" }, // Custom size
+                      sx: { width: "100%" },
                     },
                   }}
                 />
               </LocalizationProvider>
             </Box>
+            {/* Priority Dropdown */}
             <Box
               width={{ md: "45%", xs: "100%" }}
               padding={"1rem"}
               display={"flex"}
-              marginTop={{ sm: "0rem", xs: "-0.5rem" }}
               flexDirection={"column"}
             >
               <p>Priority</p>
               <FormControl sx={{ minWidth: 120 }}>
-                <InputLabel
-                  sx={{ marginTop: "-0.5rem" }}
-                  id="demo-simple-select-helper-label"
-                >
+                <InputLabel id="priority-label" sx={{ marginTop: "-0.5rem" }}>
                   Select
                 </InputLabel>
-
                 <Select
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
-                  value={priority}
-                  label="Select"
+                  labelId="priority-label"
+                  id="priority-select"
+                  value={formData.priority}
+                  name="priority"
                   size="small"
-                  onChange={(e) => setPriority(e.target.value)}
+                  onChange={handleChange}
                 >
                   <MenuItem value="">
                     <em>Priority</em>
                   </MenuItem>
-                  <hr />
-                  <MenuItem value={10}>
+                  <MenuItem value="Low">
                     <Box
                       sx={{
                         display: "flex",
                         alignItems: "center",
                         gap: "0.5rem",
-                        flexDirection: "row",
                       }}
                     >
                       <img
                         src={yellow}
-                        alt=""
-                        style={{ width: "1rem", height: "1rem" }}
+                        alt="Low Priority"
+                        width="16"
+                        height="16"
                       />
-                      <p>Low</p>
+                      Low
                     </Box>
                   </MenuItem>
-                  <MenuItem value={20}>
+                  <MenuItem value="Normal">
                     <Box
                       sx={{
                         display: "flex",
                         alignItems: "center",
                         gap: "0.5rem",
-                        flexDirection: "row",
                       }}
                     >
                       <img
                         src={green}
-                        alt=""
-                        style={{ width: "1rem", height: "1rem" }}
+                        alt="Normal Priority"
+                        width="16"
+                        height="16"
                       />
-                      <p>Normal</p>
+                      Normal
                     </Box>
                   </MenuItem>
-                  <MenuItem value={30}>
+                  <MenuItem value="High">
                     <Box
                       sx={{
                         display: "flex",
                         alignItems: "center",
                         gap: "0.5rem",
-                        flexDirection: "row",
                       }}
                     >
                       <img
                         src={red}
-                        alt=""
-                        style={{ width: "1rem", height: "1rem" }}
+                        alt="High Priority"
+                        width="16"
+                        height="16"
                       />
-                      <p>High</p>
+                      High
                     </Box>
                   </MenuItem>
                 </Select>
               </FormControl>
             </Box>
-
+            {/* Status Dropdown */}
             <Box
               width={{ md: "45%", xs: "100%" }}
               padding={"1rem"}
               display={"flex"}
-              marginTop={{ sm: "0rem", xs: "-0.5rem" }}
               flexDirection={"column"}
             >
               <p>Status</p>
               <FormControl sx={{ minWidth: 120 }}>
-                <InputLabel
-                  sx={{ marginTop: "-0.5rem" }}
-                  id="demo-simple-select-helper-label"
-                >
+                <InputLabel id="status-label" sx={{ marginTop: "-0.5rem" }}>
                   Select Status
                 </InputLabel>
-
                 <Select
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
-                  value={status}
-                  label="Age"
+                  labelId="status-label"
+                  id="status-select"
+                  value={formData.status}
+                  name="status"
                   size="small"
-                  onChange={(e) => setStatus(e.target.value)}
+                  onChange={handleChange}
                 >
                   <MenuItem value="">
                     <em>Select Status</em>
                   </MenuItem>
-                  <hr />
-                  <MenuItem value={10}>
+                  <MenuItem value="Pending">
                     <Box
                       sx={{
                         display: "flex",
                         alignItems: "center",
                         gap: "0.5rem",
-                        flexDirection: "row",
                       }}
                     >
                       <Box
                         sx={{
-                          width: "0.8rem",
-                          height: "0.8rem",
+                          width: 12,
+                          height: 12,
                           borderRadius: "50%",
                           bgcolor: "#FFB72A",
                         }}
-                      ></Box>
-                      <p>Pending</p>
+                      />
+                      Pending
                     </Box>
                   </MenuItem>
-                  <MenuItem value={20}>
+                  <MenuItem value="Active">
                     <Box
                       sx={{
                         display: "flex",
                         alignItems: "center",
                         gap: "0.5rem",
-                        flexDirection: "row",
                       }}
                     >
                       <Box
                         sx={{
-                          width: "0.8rem",
-                          height: "0.8rem",
+                          width: 12,
+                          height: 12,
                           borderRadius: "50%",
                           bgcolor: "#74D453",
                         }}
-                      ></Box>
-                      <p>Active</p>
+                      />
+                      Active
                     </Box>
                   </MenuItem>
-                  <MenuItem value={30}>
+                  <MenuItem value="Closed">
                     <Box
                       sx={{
                         display: "flex",
                         alignItems: "center",
                         gap: "0.5rem",
-                        flexDirection: "row",
                       }}
                     >
                       <Box
                         sx={{
-                          width: "0.8rem",
-                          height: "0.8rem",
+                          width: 12,
+                          height: 12,
                           borderRadius: "50%",
                           bgcolor: "#F25353",
                         }}
-                      ></Box>
-                      <p>Closed</p>
+                      />
+                      Closed
                     </Box>
                   </MenuItem>
                 </Select>
               </FormControl>
             </Box>
+            {/* Assignee Dropdown */}
             <Box
               width={{ md: "45%", xs: "100%" }}
               padding={"1rem"}
               display={"flex"}
-              marginTop={{ sm: "0rem", xs: "-0.5rem" }}
               flexDirection={"column"}
             >
               <p>Assignee</p>
               <FormControl sx={{ minWidth: 120 }}>
-                <InputLabel
-                  sx={{ marginTop: "-0.5rem" }}
-                  id="demo-simple-select-helper-label"
-                >
+                <InputLabel id="assignee-label" sx={{ marginTop: "-0.5rem" }}>
                   Select
                 </InputLabel>
-
                 <Select
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
-                  value={assignee}
-                  label="Age"
+                  labelId="assignee-label"
+                  id="assignee-select"
+                  value={formData.assignee}
+                  name="assignee"
                   size="small"
-                  onChange={(e) => setAsignee(e.target.value)}
+                  onChange={handleChange}
                 >
                   <MenuItem value="">
                     <em>Assignee</em>
                   </MenuItem>
-                  <hr />
-                  <MenuItem value={10}>Syed Muqarrab</MenuItem>
-                  <MenuItem value={20}>Saud Haris</MenuItem>
-                  <MenuItem value={30}>Saeed</MenuItem>
+                  <MenuItem value="Syed Muqarrab">Syed Muqarrab</MenuItem>
+                  <MenuItem value="Saud Haris">Saud Haris</MenuItem>
+                  <MenuItem value="Saeed">Saeed</MenuItem>
                 </Select>
               </FormControl>
             </Box>
+            {/* Description */}
             <Box
               width={{ md: "45%", xs: "100%" }}
               padding={"1rem"}
               display={"flex"}
-              marginTop={{ sm: "0rem", xs: "-0.5rem" }}
               flexDirection={"column"}
             >
               <p>Description</p>
               <TextField
-                label="Lorem ipsum dolor sit amet"
+                label="Enter description"
                 size="small"
-                id="fullWidth"
+                fullWidth
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
               />
             </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                margin: {
+                  xs: "1rem 0rem 0rem 0rem",
+                  md: "5rem 4rem 0rem 0rem",
+                },
+              }}
+            >
+              <Button
+                type="submit"
+                sx={{
+                  textTransform: "capitalize",
+                  borderRadius: "10px",
+                  padding: "0.5rem 3rem",
+                  width: { xs: "100%", sm: "auto" },
+                  fontSize: "15px",
+                  fontFamily: "Poppins",
+                  background: "#546FFF",
+                  color: "#fff",
+                }}
+              >
+                Create Task
+              </Button>
+            </Box>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: { sm: "end" },
-              width: "100%",
-              margin: { xs: "1rem 0rem 0rem 0rem", md: "5rem 0rem 0rem -5rem" },
-            }}
-          >
-            <Buttons
-              title={"Create Task"}
-              padding={"0.5rem 3rem"}
-              width={"100%"}
-            />
-          </Box>
+          {/* Create Task Button */}
         </Box>
       </Box>
     </Box>

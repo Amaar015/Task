@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { FaBookOpen } from "react-icons/fa6";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const Logo = () => {
   return (
@@ -39,7 +41,7 @@ export const Logo = () => {
 
 export const Navbar = ({ title }) => {
   const [isVisible, setIsVisible] = useState(window.innerWidth <= 600); // Set initial state correctly
-
+  const navigate = useNavigate();
   useEffect(() => {
     const handleResize = () => {
       setIsVisible(window.innerWidth <= 600); // Check width exactly at 600px
@@ -50,6 +52,11 @@ export const Navbar = ({ title }) => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+  const logout = () => {
+    localStorage.clear();
+    navigate("/login");
+    toast.success("Logout Successfully!");
+  };
 
   return (
     <Box
@@ -68,6 +75,7 @@ export const Navbar = ({ title }) => {
             padding: "0.4rem",
             background: "#546fff",
             borderRadius: "10px",
+            marginLeft: "1.5rem",
           }}
         />
       )}
@@ -83,7 +91,7 @@ export const Navbar = ({ title }) => {
         Taska
       </Typography>
       <Box
-        marginLeft={{ sm: "2rem", xs: "0.5rem" }}
+        margin={{ sm: "0 2rem 0 0", xs: "0 1.5rem 0rem 0rem" }}
         display={"flex"}
         alignItems={"center"}
         gap={"0.5rem"}
@@ -100,20 +108,21 @@ export const Navbar = ({ title }) => {
         </Typography>
       </Box>
       <Box marginRight={"4rem"} display={{ sm: "inline-block", xs: "none" }}>
-        <Buttons title={"Log Out"} padding={"0.5rem 1.5rem"} />
+        <Buttons title={"Log Out"} padding={"0.5rem 1.5rem"} methods={logout} />
       </Box>
     </Box>
   );
 };
 
-export const Buttons = ({ title, padding, width }) => {
+export const Buttons = ({ title, padding, width, methods }) => {
   return (
     <Button
+      onClick={methods}
       sx={{
         textTransform: "capitalize",
         borderRadius: "10px",
         padding: `${padding}`,
-        width: { sm: "auto", xs: `${width}` },
+        width: { xs: `${width}`, sm: "auto" },
         fontSize: "15px",
         fontFamily: "Poppins",
         background: "#546FFF",
