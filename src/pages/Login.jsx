@@ -63,7 +63,15 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (
+      !formData.email ||
+      !formData.password ||
+      errors.email ||
+      errors.password
+    ) {
+      toast.error("Something went wrong");
+      return;
+    }
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       if (!user) {

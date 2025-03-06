@@ -1,30 +1,58 @@
-import { Link, Typography } from "@mui/material";
+import { Box, Button, Link, Typography } from "@mui/material";
 import React from "react";
+import { Navbar } from "../components/Components";
+import Table from "../components/Table";
 
 const Task = () => {
   return (
-    <div>
-      Task display Page here
-      <Link
-        display={"flex"}
-        alignItems={"center"}
-        justifyContent={{ md: "normal", xs: "center" }}
-        width={"60%"}
-        padding={{ md: "0.7rem 1rem", xs: "0.7rem 0.4rem" }}
-        color="#141522"
-        gap={"0.8rem"}
-        fontSize={"18px"}
-        underline="none"
-        borderRadius={"10px"}
-        bgcolor="#F5F5F7"
-        fontFamily={"Plus Jakarta Sans"}
-        href="/dashboard/createTask"
+    <Box
+      flexGrow={1}
+      width={{ xs: "100%" }}
+      height={{sm:"auto", xs:"100%"}}
+      display={"flex"}
+      flexDirection={"column"}
+    >
+      <Navbar title={"Task"} />
+      <Box
+        sx={{
+          bgcolor:{ sm: "#F5F5F7",xs:"#fff"},
+          flexGrow: "1",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
-        <Typography display={{ md: "inline-block", xs: "none" }}>
-          Task
-        </Typography>
-      </Link>
-    </div>
+        <Box
+          width={{ sm: "95%", xs: "100%" }}
+          height={{ sm: "95%", xs: "100%" }}
+        >
+          <Box
+            display={"flex"}
+            justifyContent={{ sm: "end", xs: "center" }}
+            sx={{ marginRight: { md: "2rem", xs: "0rem" }, marginTop: "1rem" }}
+          >
+            <Button
+              type="submit"
+              sx={{
+                textTransform: "capitalize",
+                borderRadius: "10px",
+                padding: "0.5rem 3rem",
+                width: { xs: "90%", sm: "auto" },
+                fontSize: "15px",
+                fontFamily: "Poppins",
+                background: "#546FFF",
+                color: "#fff",
+              }}
+            >
+              Create Task
+            </Button>
+          </Box>
+
+          {/* Table content */}
+          <Table />
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

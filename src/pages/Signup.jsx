@@ -123,6 +123,14 @@ const Signup = () => {
         "Password must be at least 8 characters, with 1 uppercase, 1 lowercase, 1 number, and 1 special character";
     }
 
+    setErrors(validationErrors);
+
+    // Check if there are any validation errors
+    if (Object.keys(validationErrors).length > 0) {
+      toast.error("Something went wrong");
+      return;
+    }
+
     try {
       const register = await axios.post(
         "https://reqres.in/api/users",
