@@ -40,6 +40,9 @@ export const task = [
     priority: "Low",
     image: yellow,
     status: "Pending",
+    description:
+      " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
+    assignedBy: "Majid Ali",
   },
   {
     id: 2,
@@ -49,6 +52,9 @@ export const task = [
     priority: "High",
     image: red,
     status: "Active",
+    assignedBy: "Majid Ali",
+    description:
+      " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
   },
   {
     id: 3,
@@ -58,6 +64,9 @@ export const task = [
     priority: "Normal",
     image: green,
     status: "Closed",
+    assignedBy: "Majid Ali",
+    description:
+      " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
   },
   {
     id: 4,
@@ -67,6 +76,9 @@ export const task = [
     priority: "Low",
     image: yellow,
     status: "Pending",
+    assignedBy: "Majid Ali",
+    description:
+      " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
   },
   {
     id: 5,
@@ -76,6 +88,9 @@ export const task = [
     priority: "High",
     image: red,
     status: "Active",
+    assignedBy: "Majid Ali",
+    description:
+      " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
   },
   {
     id: 6,
@@ -85,59 +100,80 @@ export const task = [
     priority: "Normal",
     image: green,
     status: "Closed",
+    assignedBy: "Majid Ali",
+    description:
+      " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
   },
   {
     id: 7,
-    name: "Create Mobile App",
+    name: "Database Desinger",
     duedate: "20 jan 2024",
     assignee: "Saud Shaikh",
     priority: "Low",
     image: yellow,
     status: "Pending",
+    assignedBy: "Majid Ali",
+    description:
+      " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
   },
   {
     id: 8,
-    name: "Website Design",
+    name: "MERN Stack Developer",
     duedate: "25 jan 2024",
     assignee: "Mohammad Zubair",
     priority: "High",
     image: red,
     status: "Active",
+    assignedBy: "Majid Ali",
+    description:
+      " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
   },
   {
     id: 9,
-    name: "UI UX Design",
+    name: "SQA",
     duedate: "20 jan 2024",
     assignee: "Mohammad Mubashir",
     priority: "Normal",
     image: green,
     status: "Closed",
+    assignedBy: "Majid Ali",
+    description:
+      " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
   },
   {
     id: 10,
-    name: "iOS Development",
+    name: "Python Developer",
     duedate: "25 jan 2024",
-    assignee: "Sahir Shah",
+    assignee: "Mahmood Rasheed",
     priority: "Low",
     image: yellow,
     status: "Pending",
+    assignedBy: "Majid Ali",
+    description:
+      " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
   },
   {
     id: 11,
-    name: "Test Api's",
+    name: "Api's Integration",
     duedate: "20 jan 2024",
     assignee: "Syed Muqarrab",
     priority: "High",
     image: red,
     status: "Active",
+    assignedBy: "M Zubair",
+    description:
+      " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
   },
   {
     id: 12,
-    name: "Plugin Development",
+    name: "Flutter Development",
     duedate: "20 jan 2024",
     assignee: "Mohammad Saeed",
     priority: "Normal",
     image: green,
     status: "Closed",
+    assignedBy: "Majid Ali",
+    description:
+      " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
   },
 ];

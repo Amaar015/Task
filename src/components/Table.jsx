@@ -13,10 +13,9 @@ import { FiTrash2 } from "react-icons/fi";
 import { Box, Modal, Divider, Menu, MenuItem } from "@mui/material";
 import Modals from "./Modals";
 
-
-
 export default function AccessibleTable() {
   //   menu
+  const [selectedRow, setSelectedRow] = React.useState(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -24,6 +23,14 @@ export default function AccessibleTable() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const [anchorEl1, setAnchorEl1] = React.useState(null);
+  const open1 = Boolean(anchorEl1);
+  const handleClick1 = (event) => {
+    setAnchorEl1(event.currentTarget);
+  };
+  const handleClose1 = () => {
+    setAnchorEl1(null);
   };
 
   const [page, setPage] = React.useState(0);
@@ -61,12 +68,14 @@ export default function AccessibleTable() {
   //    Modal
   const [openModal, setOpenModal] = React.useState(false);
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (row) => {
+    setSelectedRow(row);
     setOpenModal(true);
   };
 
   const handleCloseModal = () => {
     setOpenModal(false);
+    setSelectedRow(null);
   };
 
   return (
@@ -117,7 +126,9 @@ export default function AccessibleTable() {
           {paginatedRows.map((row) => (
             <TableRow key={row.id}>
               <TableCell
-                onClick={handleOpenModal}
+                onClick={() => {
+                  handleOpenModal(row);
+                }}
                 component="th"
                 scope="row"
                 sx={{
@@ -210,10 +221,10 @@ export default function AccessibleTable() {
                 sx={{ display: { xs: "none", sm: "table-cell" }, width: "0px" }}
               >
                 <Box
-                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-controls={open1 ? "basic-menu" : undefined}
                   aria-haspopup="true"
-                  aria-expanded={open ? "true" : undefined}
-                  onClick={handleClick}
+                  aria-expanded={open1 ? "true" : undefined}
+                  onClick={handleClick1}
                   sx={{
                     bgcolor:
                       row.status === "Active"
@@ -231,9 +242,9 @@ export default function AccessibleTable() {
                 </Box>
                 <Menu
                   id="basic-menu"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
+                  anchorEl={anchorEl1}
+                  open={open1}
+                  onClose={handleClose1}
                   MenuListProps={{
                     "aria-labelledby": "basic-button",
                   }}
@@ -249,7 +260,7 @@ export default function AccessibleTable() {
                   <Divider />
                   {uniqueStatus.map((tasks) => (
                     <>
-                      <MenuItem onClick={handleClose}>
+                      <MenuItem onClick={handleClose1}>
                         <Box
                           sx={{
                             display: "flex",
@@ -309,7 +320,7 @@ export default function AccessibleTable() {
         aria-labelledby="create-modal-title"
         aria-describedby="create-modal-description"
       >
-        <Modals />
+        <Modals HandleCLose={handleCloseModal} row={selectedRow} />
       </Modal>
     </TableContainer>
   );

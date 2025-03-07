@@ -19,7 +19,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
 const CreateTask = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -96,6 +96,23 @@ const CreateTask = () => {
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      return;
+    }
+    if (
+      !formData.title ||
+      !formData.assignee ||
+      !formData.description ||
+      !formData.due_date ||
+      !formData.priority ||
+      !formData.status ||
+      errors.title ||
+      errors.assignee ||
+      errors.description ||
+      errors.due_date ||
+      errors.priority ||
+      errors.status
+    ) {
+      toast.error("Something went wrong");
       return;
     }
 
