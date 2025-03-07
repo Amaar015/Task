@@ -21,7 +21,7 @@ const Login = () => {
 
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") === "true") {
-      navigate("/dashboard/createTask");
+      navigate("/dashboard/task");
     }
   }, [navigate]);
 

@@ -4,7 +4,7 @@ import "./App.css";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
-import { Box, createMuiTheme, ThemeProvider } from "@mui/material";
+import { Box, createTheme, ThemeProvider } from "@mui/material";
 import { ToastContainer } from "react-toastify";
 import Sidebar from "./components/Sidebar";
 import CreateTask from "./components/CreateTask";
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
   },
 ]);
 const App = () => {
-  const theme = createMuiTheme({
+  const theme = createTheme({
     typography: {
       h4: {
         fontFamily: ["Plus Jakarta Sans"].join(","),

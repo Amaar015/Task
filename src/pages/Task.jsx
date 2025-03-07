@@ -1,11 +1,20 @@
 import { Box, Button, Link, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { Navbar } from "../components/Components";
 import Table from "../components/Table";
 import { useNavigate } from "react-router-dom";
 
 const Task = () => {
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    if (localStorage.getItem("isLoggedIn") === "true") {
+      navigate("/dashboard/task");
+    } else {
+      navigate("/login");
+    }
+  }, [navigate]);
+  
   return (
     <Box
       flexGrow={1}

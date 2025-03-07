@@ -191,7 +191,7 @@ export default function AccessibleTable() {
                 <MenuItem>Priority</MenuItem>
                 <Divider />
                 {uniquePriorities.map((tasks) => (
-                  <>
+                  <Box key={tasks.id}>
                     <MenuItem onClick={handleClose}>
                       <Box
                         aria-controls={open ? "basic-menu" : undefined}
@@ -214,7 +214,7 @@ export default function AccessibleTable() {
                       </Box>
                     </MenuItem>
                     <Divider />
-                  </>
+                  </Box>
                 ))}
               </Menu>
               <TableCell
@@ -259,7 +259,7 @@ export default function AccessibleTable() {
                   <MenuItem>Status</MenuItem>
                   <Divider />
                   {uniqueStatus.map((tasks) => (
-                    <>
+                    <Box key={tasks.id}>
                       <MenuItem onClick={handleClose1}>
                         <Box
                           sx={{
@@ -285,7 +285,7 @@ export default function AccessibleTable() {
                         </Box>{" "}
                       </MenuItem>
                       <Divider />
-                    </>
+                    </Box>
                   ))}
                 </Menu>
               </TableCell>

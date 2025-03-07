@@ -28,7 +28,7 @@ const Signup = () => {
 
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") === "true") {
-      navigate("/dashboard/createTask");
+      navigate("/dashboard/task");
     }
   }, [navigate]);
   const rolesList = [

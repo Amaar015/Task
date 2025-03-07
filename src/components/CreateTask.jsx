@@ -8,8 +8,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
-import { Navbar, Buttons } from "./Components";
+import React, { useEffect, useState } from "react";
+import { Navbar } from "./Components";
 import yellow from "./../assets/yellow.png";
 import green from "./../assets/green.png";
 import red from "./../assets/red.png";
@@ -38,6 +38,14 @@ const CreateTask = () => {
     assignee: "",
     description: "",
   });
+
+  useEffect(() => {
+    if (localStorage.getItem("isLoggedIn") === "true") {
+      navigate("/dashboard/createTask");
+    } else {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
