@@ -24,16 +24,17 @@ import { task } from "../data.js";
 const CreateTask = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    title: "",
-    due_date: dayjs(),
+    id: Math.floor(Math.random() * 1000),
+    name: "",
+    duedate: dayjs(),
     priority: "",
     status: "",
     assignee: "",
     description: "",
   });
   const [errors, setErrors] = useState({
-    title: "",
-    due_date: "",
+    name: "",
+    duedate: "",
     priority: "",
     status: "",
     assignee: "",
@@ -52,14 +53,14 @@ const CreateTask = () => {
     const { name, value } = e.target;
 
     setFormData({ ...formData, [name]: value });
-    if (name === "title") {
+    if (name === "name") {
       if (!/^.{3,}$/.test(value)) {
         setErrors((prev) => ({
           ...prev,
-          title: "Title Should be more than 3 characters",
+          name: "Title Should be more than 3 characters",
         }));
       } else {
-        setErrors((prev) => ({ ...prev, title: "" }));
+        setErrors((prev) => ({ ...prev, name: "" }));
       }
     }
     if (name === "description") {
@@ -89,7 +90,7 @@ const CreateTask = () => {
     if (name === "due_date") {
       setErrors((prev) => ({
         ...prev,
-        due_date: value ? "" : "Due date is required",
+        duedate: value ? "" : "Due date is required",
       }));
     }
   };
@@ -108,16 +109,16 @@ const CreateTask = () => {
       return;
     }
     if (
-      !formData.title ||
+      !formData.name ||
       !formData.assignee ||
       !formData.description ||
-      !formData.due_date ||
+      !formData.duedate ||
       !formData.priority ||
       !formData.status ||
-      errors.title ||
+      errors.name ||
       errors.assignee ||
       errors.description ||
-      errors.due_date ||
+      errors.duedate ||
       errors.priority ||
       errors.status
     ) {
@@ -125,10 +126,8 @@ const CreateTask = () => {
       return;
     }
 
-    console.log(formData);
-    console.log(task);
     const tasks = task.push(formData);
-    console.log(tasks);
+    localStorage.setItem("task", JSON.stringify(task));
     navigate("/dashboard/task");
   };
 
@@ -173,11 +172,11 @@ const CreateTask = () => {
                 <TextField
                   label="Title"
                   size="small"
-                  name="title"
-                  value={formData.title}
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
-                  error={!!errors.title}
-                  helperText={errors.title}
+                  error={!!errors.name}
+                  helperText={errors.name}
                 />
               </Box>
               <Box
@@ -199,9 +198,9 @@ const CreateTask = () => {
                         return dayjs(date).isBefore(dayjs(), "day"); // Disable past dates
                       }}
                       name="due_date"
-                      value={formData.due_date}
+                      value={formData.duedate}
                       onChange={(date) => {
-                        setFormData({ ...formData, due_date: date });
+                        setFormData({ ...formData, duedate: date });
                       }}
                       // disableOpenPicker
                       slotProps={{

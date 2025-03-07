@@ -2,7 +2,6 @@ import yellow from "./assets/yellow.png";
 import green from "./assets/green.png";
 import red from "./assets/red.png";
 
-
 export const selects = [
   {
     title: "Priority",
@@ -36,7 +35,7 @@ export const task = [
   {
     id: 1,
     name: "Create Mobile App",
-    duedate: "20 jan 2024",
+    duedate: "2025-02-19",
     assignee: "Saud Shaikh",
     priority: "Low",
     image: yellow,

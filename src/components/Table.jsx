@@ -18,153 +18,12 @@ import red from "../assets/red.png";
 
 export default function AccessibleTable() {
   //   menu
-  const [tasks, setTasks] = React.useState([
-    {
-      id: 1,
-      name: "Create Mobile App",
-      duedate: "20 jan 2024",
-      assignee: "Saud Shaikh",
-      priority: "Low",
-      image: yellow,
-      status: "Pending",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
-      assignedBy: "Majid Ali",
-    },
-    {
-      id: 2,
-      name: "Website Design",
-      duedate: "25 jan 2024",
-      assignee: "Mohammad Zubair",
-      priority: "High",
-      image: red,
-      status: "Active",
-      assignedBy: "Majid Ali",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
-    },
-    {
-      id: 3,
-      name: "UI UX Design",
-      duedate: "20 jan 2024",
-      assignee: "Mohammad Mubashir",
-      priority: "Normal",
-      image: green,
-      status: "Closed",
-      assignedBy: "Majid Ali",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
-    },
-    {
-      id: 4,
-      name: "iOS Development",
-      duedate: "25 jan 2024",
-      assignee: "Sahir Shah",
-      priority: "Low",
-      image: yellow,
-      status: "Pending",
-      assignedBy: "Majid Ali",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
-    },
-    {
-      id: 5,
-      name: "Test Api's",
-      duedate: "20 jan 2024",
-      assignee: "Syed Muqarrab",
-      priority: "High",
-      image: red,
-      status: "Active",
-      assignedBy: "Majid Ali",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
-    },
-    {
-      id: 6,
-      name: "Plugin Development",
-      duedate: "20 jan 2024",
-      assignee: "Mohammad Saeed",
-      priority: "Normal",
-      image: green,
-      status: "Closed",
-      assignedBy: "Majid Ali",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
-    },
-    {
-      id: 7,
-      name: "Database Desinger",
-      duedate: "20 jan 2024",
-      assignee: "Saud Shaikh",
-      priority: "Low",
-      image: yellow,
-      status: "Pending",
-      assignedBy: "Majid Ali",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
-    },
-    {
-      id: 8,
-      name: "MERN Stack Developer",
-      duedate: "25 jan 2024",
-      assignee: "Mohammad Zubair",
-      priority: "High",
-      image: red,
-      status: "Active",
-      assignedBy: "Majid Ali",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
-    },
-    {
-      id: 9,
-      name: "SQA",
-      duedate: "20 jan 2024",
-      assignee: "Mohammad Mubashir",
-      priority: "Normal",
-      image: green,
-      status: "Closed",
-      assignedBy: "Majid Ali",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
-    },
-    {
-      id: 10,
-      name: "Python Developer",
-      duedate: "25 jan 2024",
-      assignee: "Mahmood Rasheed",
-      priority: "Low",
-      image: yellow,
-      status: "Pending",
-      assignedBy: "Majid Ali",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
-    },
-    {
-      id: 11,
-      name: "Api's Integration",
-      duedate: "20 jan 2024",
-      assignee: "Syed Muqarrab",
-      priority: "High",
-      image: red,
-      status: "Active",
-      assignedBy: "M Zubair",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
-    },
-    {
-      id: 12,
-      name: "Flutter Development",
-      duedate: "20 jan 2024",
-      assignee: "Mohammad Saeed",
-      priority: "Normal",
-      image: green,
-      status: "Closed",
-      assignedBy: "Majid Ali",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae tempora perferendis, provident placeat eius eos, iusto accusamus sequi et aut corrupti expedita iste! Possimus odit quidem odio repudiandae natus. Similique. Inventore corrupti, aliquam consequatur laborum fugit quasi incidunt blanditiis vel totam, delectus maiores molestias tempore nisi eveniet illum voluptatibus. Sunt minus, atque corporis voluptas facere aliquam quisquam tenetur ducimus facilis? Placeat beatae, fugit aliquid sint, mollitia rem quod veniam voluptatem iste, aperiam rerum ratione. Itaque ea sed assumenda, ratione dolore, molestiae voluptatibus repellat minus.",
-    },
-  ]);
 
+  const [tasks, setTasks] = React.useState(
+    JSON.parse(localStorage.getItem("task")).sort(
+      (a, b) => new Date(b.id) - new Date(a.id)
+    ) || []
+  );
   const [selectedRow, setSelectedRow] = React.useState(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -194,13 +53,11 @@ export default function AccessibleTable() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
   // Slice the data based on pagination
   const paginatedRows = tasks.slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
-
   const uniquePriorities = tasks.reduce((unique, current) => {
     if (!unique.some((item) => item.priority === current.priority)) {
       unique.push(current);
@@ -231,8 +88,6 @@ export default function AccessibleTable() {
   const deleteTask = (id) => {
     const updatedTasks = tasks.filter((task) => task.id !== id);
     setTasks(updatedTasks);
-    console.log(id);
-    console.log(tasks.filter((task) => task.id !== id));
   };
 
   return (
@@ -302,7 +157,7 @@ export default function AccessibleTable() {
                 {row.name}
               </TableCell>
               <TableCell sx={{ display: { xs: "none", sm: "table-cell" } }}>
-                {row.duedate}
+                {row.duedate.split("T")[0]}
               </TableCell>
               <TableCell sx={{ display: { xs: "none", sm: "table-cell" } }}>
                 {row.assignee}
@@ -321,7 +176,13 @@ export default function AccessibleTable() {
                   }}
                 >
                   <img
-                    src={row.image}
+                    src={
+                      row.priority === "Low"
+                        ? yellow
+                        : row.priority === "High"
+                        ? red
+                        : green
+                    }
                     alt="Low Priority"
                     width="16"
                     height="16"
@@ -347,8 +208,8 @@ export default function AccessibleTable() {
               >
                 <MenuItem>Priority</MenuItem>
                 <Divider />
-                {uniquePriorities.map((tasks) => (
-                  <Box key={tasks.id}>
+                {uniquePriorities.map((task) => (
+                  <Box key={task.id}>
                     <MenuItem onClick={handleClose}>
                       <Box
                         aria-controls={open ? "basic-menu" : undefined}
@@ -362,12 +223,12 @@ export default function AccessibleTable() {
                         }}
                       >
                         <img
-                          src={tasks.image}
+                          src={task.image}
                           alt="Low Priority"
                           width="16"
                           height="16"
                         />
-                        {tasks.priority}
+                        {task.priority}
                       </Box>
                     </MenuItem>
                     <Divider />

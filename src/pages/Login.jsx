@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaBookOpen } from "react-icons/fa6";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import bg from "../assets/login.png";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { Logo } from "../components/Components";
 const Login = () => {
@@ -25,14 +23,11 @@ const Login = () => {
     }
   }, [navigate]);
 
-  // Email validation regex
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-  // Password validation (min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char)
   const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-  // Handle input change with validation
   const handleChange = (e) => {
     const { name, value } = e.target;
 
