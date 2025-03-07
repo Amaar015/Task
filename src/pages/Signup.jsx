@@ -266,7 +266,10 @@ const Signup = () => {
         <Button
           type="submit"
           variant="contained"
-          disabled={Object.values(formData).some((value) => !value.trim())}
+          disabled={
+            Object.values(formData).some((value) => !value.trim()) ||
+            Object.values(errors).some((error) => error)
+          }
           sx={{
             background: "#666CFF",
             fontWeight: 600,

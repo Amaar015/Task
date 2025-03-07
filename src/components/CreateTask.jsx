@@ -20,6 +20,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { task } from "../data.js";
 const CreateTask = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -125,6 +126,9 @@ const CreateTask = () => {
     }
 
     console.log(formData);
+    console.log(task);
+    const tasks = task.push(formData);
+    console.log(tasks);
     navigate("/dashboard/task");
   };
 
@@ -199,19 +203,16 @@ const CreateTask = () => {
                       onChange={(date) => {
                         setFormData({ ...formData, due_date: date });
                       }}
+                      // disableOpenPicker
                       slotProps={{
                         textField: {
                           size: "small",
+                          readOnly: true,
                         },
                       }}
                     />
                   </DemoContainer>
                 </LocalizationProvider>
-                {errors.title && (
-                  <Typography color="error" fontSize="12px" mt="4px">
-                    This field is required
-                  </Typography>
-                )}
               </Box>
 
               {/* Priority Dropdown */}

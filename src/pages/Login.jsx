@@ -84,7 +84,7 @@ const Login = () => {
       ) {
         toast.success("Login Successfull");
         localStorage.setItem("isLoggedIn", "true");
-        navigate("/dashboard/createTask");
+        navigate("/dashboard/task");
       } else {
         toast.error("Invalid Email & Password");
       }
@@ -171,7 +171,10 @@ const Login = () => {
         <Button
           type="submit"
           variant="contained"
-          disabled={Object.values(formData).some((value) => !value.trim())}
+          disabled={
+            Object.values(formData).some((value) => !value.trim()) ||
+            Object.values(errors).some((error) => error)
+          }
           sx={{
             padding: "",
             background: "#666CFF",
