@@ -15,10 +15,12 @@ import bg from "../assets/login.png";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Logo } from "../components/Components";
+import { EndAdornment, LoginForm, Logo } from "../components/Components";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [visible, setVisible] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     role: "", // Single role selection
@@ -157,6 +159,7 @@ const Signup = () => {
     <Box
       sx={{
         width: "100%",
+        minHeight: "100vh",
         height: "100vh",
         backgroundImage: `url(${bg})`,
         backgroundColor: { xs: "#F7F7F9" },
@@ -173,32 +176,34 @@ const Signup = () => {
         component="form"
         onSubmit={handleSubmit}
         sx={{
-          height: "580px",
-          margin: "0rem 1.5rem",
-          width: { sm: "400px", xs: "100%" },
+          height: { sm: "85%", xs: "640px" },
+          // margin: "0rem 1.5rem",
+          width: { sm: "400px", xs: "270px" },
           background: "#ffffff",
           boxShadow: " rgba(0, 0, 0, 0.16) 0px 1px 4px",
           borderRadius: "10px",
-          padding: { sm: "2rem 4rem", xs: "3rem 1rem" },
+          padding: { sm: "1.5rem 4rem", xs: "3rem 1rem" },
           display: "flex",
           flexDirection: "column",
           gap: "1.5rem",
+          justifyContent: "center",
         }}
       >
         {/* Header Section */}
-        <Logo />
+        <LoginForm />
         <Typography
           variant="p"
-          fontSize={"24px"}
+          fontSize={{ sm: "24px", xs: "20px" }}
           fontWeight={600}
           color="#4C4E64DE"
           fontFamily={"Poppins"}
+          letterSpacing={{ sm: "1.5px", xs: "0px" }}
         >
           Welcome to Taska! 👋🏻
         </Typography>
 
         {/* Form Fields */}
-        <Box display={"flex"} flexDirection={"column"} gap={"1rem"}>
+        <Box display={"flex"} flexDirection={"column"} gap={"1.5rem"}>
           {/* Full Name */}
           <TextField
             type="text"
@@ -206,6 +211,7 @@ const Signup = () => {
             variant="outlined"
             required
             name="name"
+            size="small"
             value={formData.name}
             onChange={handleChange}
             error={!!errors.name}
@@ -220,6 +226,7 @@ const Signup = () => {
               onChange={handleChange}
               label="Select Role"
               name="role"
+              size="small"
             >
               <MenuItem value="">Select Role</MenuItem>
               {rolesList.map((role, index) => (
@@ -242,6 +249,7 @@ const Signup = () => {
             label="Email"
             variant="outlined"
             name="email"
+            size="small"
             value={formData.email}
             onChange={handleChange}
             error={!!errors.email}
@@ -252,13 +260,23 @@ const Signup = () => {
           <TextField
             required
             label="Password"
-            type="password"
+            type={visible ? "text" : "password"}
             variant="outlined"
             name="password"
+            size="small"
             value={formData.password}
             onChange={handleChange}
             error={!!errors.password}
             helperText={errors.password}
+            InputProps={{
+              endAdornment: (
+                <EndAdornment visible={visible} setVisible={setVisible} />
+              ),
+              inputProps: {
+                autoComplete: "new-password", // Prevents browser auto-suggestions
+                inputMode: "text", // Stops default password handling
+              },
+            }}
           />
         </Box>
 

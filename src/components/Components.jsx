@@ -1,10 +1,17 @@
 import { useState, useEffect } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  InputAdornment,
+  Typography,
+} from "@mui/material";
 import { FaBookOpen } from "react-icons/fa6";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 export const Logo = () => {
   return (
     <Box
@@ -39,6 +46,38 @@ export const Logo = () => {
   );
 };
 
+export const LoginForm = () => {
+  return (
+    <Box
+      display={"flex"}
+      width={"100%"}
+      alignItems={"center"}
+      gap={"16px"}
+      justifyContent={"center"}
+    >
+      <FaBookOpen
+        style={{
+          width: "24px",
+          height: "24px",
+          color: "#fff",
+          padding: "0.4rem",
+          background: "#546fff",
+          borderRadius: "10px",
+        }}
+      />
+      <Typography
+        variant="h4"
+        fontSize={"32px"}
+        fontWeight={"600"}
+        color="#141522"
+        textAlign={"center"}
+        fontFamily={"Plus Jakarta Sans"}
+      >
+        Taska
+      </Typography>
+    </Box>
+  );
+};
 export const Navbar = ({ title }) => {
   const [isVisible, setIsVisible] = useState(window.innerWidth <= 600); // Set initial state correctly
   const navigate = useNavigate();
@@ -61,7 +100,7 @@ export const Navbar = ({ title }) => {
   return (
     <Box
       width={"100%"}
-      padding={"1rem 0rem"}
+      padding={"1rem 0rem 1rem 2rem"}
       display={"flex"}
       alignItems={"center"}
       justifyContent={"space-between"}
@@ -75,7 +114,7 @@ export const Navbar = ({ title }) => {
             padding: "0.4rem",
             background: "#546fff",
             borderRadius: "10px",
-            marginLeft: "1.5rem",
+            marginLeft: "-1rem",
           }}
         />
       )}
@@ -91,7 +130,7 @@ export const Navbar = ({ title }) => {
         Taska
       </Typography>
       <Box
-        margin={{ sm: "0 2rem 0 0", xs: "0 1.5rem 0rem 0rem" }}
+        margin={{ sm: "0 2rem 0 0", xs: "0 3rem 0rem 0rem" }}
         display={"flex"}
         alignItems={"center"}
         gap={"0.5rem"}
@@ -131,5 +170,15 @@ export const Buttons = ({ title, padding, width, methods }) => {
     >
       {title}
     </Button>
+  );
+};
+
+export const EndAdornment = ({ visible, setVisible }) => {
+  return (
+    <InputAdornment position="end">
+      <IconButton onClick={() => setVisible(!visible)}>
+        {visible ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
+      </IconButton>
+    </InputAdornment>
   );
 };

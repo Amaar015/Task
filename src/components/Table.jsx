@@ -15,14 +15,25 @@ import Modals from "./Modals";
 import yellow from "../assets/yellow.png";
 import green from "../assets/green.png";
 import red from "../assets/red.png";
+import dayjs from "dayjs";
+import { ExistingTask } from "../data";
 
 export default function AccessibleTable() {
   //   menu
+  const [task, setTask] = React.useState(
+    localStorage.getItem("tasks")
+      ? JSON.parse(localStorage.getItem("tasks"))
+      : ExistingTask
+  );
+
+  // React.useEffect(() => {
+  //   if (localStorage.getItem("task")) {
+  //     setTask(JSON.parse(localStorage.getItem("task")));
+  //   }
+  // }, []);
 
   const [tasks, setTasks] = React.useState(
-    JSON.parse(localStorage.getItem("task")).sort(
-      (a, b) => new Date(b.id) - new Date(a.id)
-    ) || []
+    task.sort((a, b) => new Date(b.id) - new Date(a.id))
   );
   const [selectedRow, setSelectedRow] = React.useState(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -86,8 +97,13 @@ export default function AccessibleTable() {
   };
 
   const deleteTask = (id) => {
-    const updatedTasks = tasks.filter((task) => task.id !== id);
+    const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    const updatedTasks = storedTasks.filter((task) => task.id !== id);
+
     setTasks(updatedTasks);
+
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   };
 
   return (
@@ -157,7 +173,9 @@ export default function AccessibleTable() {
                 {row.name}
               </TableCell>
               <TableCell sx={{ display: { xs: "none", sm: "table-cell" } }}>
-                {row.duedate.split("T")[0]}
+                {row.duedate
+                  ? dayjs(row.duedate).format("YYYY-MM-DD")
+                  : "No Due Date"}
               </TableCell>
               <TableCell sx={{ display: { xs: "none", sm: "table-cell" } }}>
                 {row.assignee}
@@ -208,8 +226,8 @@ export default function AccessibleTable() {
               >
                 <MenuItem>Priority</MenuItem>
                 <Divider />
-                {uniquePriorities.map((task) => (
-                  <Box key={task.id}>
+                {uniquePriorities.map((taskss) => (
+                  <Box key={taskss.id}>
                     <MenuItem onClick={handleClose}>
                       <Box
                         aria-controls={open ? "basic-menu" : undefined}
@@ -223,12 +241,12 @@ export default function AccessibleTable() {
                         }}
                       >
                         <img
-                          src={task.image}
+                          src={taskss.image}
                           alt="Low Priority"
                           width="16"
                           height="16"
                         />
-                        {task.priority}
+                        {taskss.priority}
                       </Box>
                     </MenuItem>
                     <Divider />

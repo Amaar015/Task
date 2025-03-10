@@ -3,10 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import bg from "../assets/login.png";
 import { toast } from "react-toastify";
-import { Logo } from "../components/Components";
+import { EndAdornment, LoginForm, Logo } from "../components/Components";
 const Login = () => {
   const navigate = useNavigate();
-
+  const [visible, setVisible] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -90,18 +90,20 @@ const Login = () => {
 
   return (
     <Box
+      component={"div"}
       sx={{
         width: "100%",
+        minHeight: "100vh", // Ensures it takes full screen height
         height: "100vh",
         backgroundImage: `url(${bg})`,
         backgroundColor: { xs: "#F7F7F9" },
         backgroundSize: { lg: "cover", xs: "contain" },
-        backgroundPosition: "bottom", // Adjust for mobile
+        backgroundPosition: "bottom",
         backgroundRepeat: { xs: "no-repeat" },
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        overflow: "hidden", // Prevents any unwanted scrolling issues
+        overflow: "hidden", // Prevents scrolling
       }}
     >
       <Box
@@ -110,27 +112,28 @@ const Login = () => {
         sx={{
           height: "440px",
           margin: "0rem 1.5rem",
-          width: { sm: "400px", xs: "100%" },
+          width: { sm: "400px", xs: "300px" },
           background: "#ffffff",
           boxShadow: " rgba(0, 0, 0, 0.16) 0px 1px 4px",
           borderRadius: "10px",
           padding: { sm: "3rem 4rem", xs: "3rem 1rem" },
           display: "flex",
           flexDirection: "column",
-          gap: "2.5rem",
+          gap: "1.5rem",
         }}
       >
-        <Logo />
+        <LoginForm />
         <Typography
           variant="p"
           fontSize={"24px"}
           fontWeight={600}
           color="#4C4E64DE"
           fontFamily={"Poppins"}
+          letterSpacing={{ sm: "1.5px", xs: "0px" }}
         >
           Welcome to Taska! 👋🏻
         </Typography>
-        <Box display={"flex"} flexDirection={"column"} gap={"1rem"}>
+        <Box display={"flex"} flexDirection={"column"} gap={"1.5rem"}>
           <TextField
             required
             type="email"
@@ -151,9 +154,18 @@ const Login = () => {
             required
             id="outlined-basic"
             label="Password"
-            type="password"
+            type={visible ? "text" : "password"}
             variant="outlined"
             name="password"
+            InputProps={{
+              endAdornment: (
+                <EndAdornment visible={visible} setVisible={setVisible} />
+              ),
+              inputProps: {
+                autoComplete: "new-password", // Prevents browser auto-suggestions
+                inputMode: "text", // Stops default password handling
+              },
+            }}
             value={formData.password}
             onChange={handleChange}
           />

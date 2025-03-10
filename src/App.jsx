@@ -12,7 +12,14 @@ import Task from "./pages/Task";
 
 const Layout = () => {
   return (
-    <Box display={"flex"} width={"100%"} height={{ xs: "100%", sm: "97vh" }}>
+    <Box
+      display={"flex"}
+      width={"100vw"}
+      height={{ xs: "100%", sm: "100vh" }}
+      minHeight={"100vh"}
+      minWidth={"100vw"}
+      overflow={{ md: "hidden" }}
+    >
       <Sidebar />
       <Outlet />
     </Box>

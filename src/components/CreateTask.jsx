@@ -20,7 +20,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { task } from "../data.js";
+import { ExistingTask } from "../data.js";
 const CreateTask = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -126,9 +126,14 @@ const CreateTask = () => {
       return;
     }
 
-    const tasks = task.push(formData);
-    localStorage.setItem("task", JSON.stringify(task));
+    const existingTasks =
+      JSON.parse(localStorage.getItem("tasks")) || ExistingTask;
+    const updatedTasks = [...existingTasks, formData];
+
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+
     navigate("/dashboard/task");
+    toast.success("Task Created Successfully");
   };
 
   return (
@@ -146,332 +151,323 @@ const CreateTask = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          padding: "2rem",
         }}
       >
         <Box
-          width={{ sm: "95%", xs: "100%" }}
-          height={{ sm: "90%", xs: "100%" }}
+          height={"100%"}
+          width={"100%"}
           bgcolor={"#fff"}
-          // padding={{ xs: "1rem 0rem", sm: "0rem 0rem" }}
+          component={"form"}
+          padding={'1rem 2rem'}
+          onSubmit={handleSubmit}
         >
-          <Box component={"form"} onSubmit={handleSubmit}>
+          <Box
+            display={"flex"}
+            flexWrap={"wrap"}
+            alignItems={"center"}
+          >
             <Box
+              width={{ md: "45%", xs: "100%" }}
+              padding={"1rem"}
               display={"flex"}
-              flexWrap={"wrap"}
-              alignItems={"center"}
-              padding={{ sm: "0rem 2rem", xs: "0rem 0rem" }}
+              // marginTop={"-1rem"}
+              flexDirection={"column"}
             >
-              <Box
-                width={{ md: "45%", xs: "100%" }}
-                padding={"1rem"}
-                display={"flex"}
-                // marginTop={"-1rem"}
-                flexDirection={"column"}
-              >
-                <p>Title</p>
-                <TextField
-                  label="Title"
-                  size="small"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  error={!!errors.name}
-                  helperText={errors.name}
-                />
-              </Box>
-              <Box
-                width={{ md: "45%", xs: "100%" }}
-                padding={"1rem"}
-                display={"flex"}
-                flexDirection={"column"}
-                marginTop={"0.4rem"}
-              >
-                <p style={{ marginBottom: "0.2rem" }}>Due Date</p>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer components={["DatePicker"]}>
-                    <DatePicker
-                      sx={{
-                        width: "100%",
-                      }}
-                      minDate={dayjs().startOf("year")} // Disables past years
-                      shouldDisableDate={(date) => {
-                        return dayjs(date).isBefore(dayjs(), "day"); // Disable past dates
-                      }}
-                      name="due_date"
-                      value={formData.duedate}
-                      onChange={(date) => {
-                        setFormData({ ...formData, duedate: date });
-                      }}
-                      // disableOpenPicker
-                      slotProps={{
-                        textField: {
-                          size: "small",
-                          readOnly: true,
-                        },
-                      }}
-                    />
-                  </DemoContainer>
-                </LocalizationProvider>
-              </Box>
-
-              {/* Priority Dropdown */}
-              <Box
-                width={{ md: "45%", xs: "100%" }}
-                padding={"1rem"}
-                display={"flex"}
-                flexDirection={"column"}
-                marginTop={"-1rem"}
-              >
-                <p>Priority</p>
-                <FormControl sx={{ minWidth: 120 }}>
-                  <InputLabel id="priority-label" sx={{ marginTop: "-0.5rem" }}>
-                    Select
-                  </InputLabel>
-                  <Select
-                    labelId="priority-label"
-                    id="priority-select"
-                    value={formData.priority}
-                    name="priority"
-                    size="small"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value="">
-                      <em>Priority</em>
-                    </MenuItem>
-                    <MenuItem value="Low">
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "0.5rem",
-                        }}
-                      >
-                        <img
-                          src={yellow}
-                          alt="Low Priority"
-                          width="16"
-                          height="16"
-                        />
-                        Low
-                      </Box>
-                    </MenuItem>
-                    <MenuItem value="Normal">
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "0.5rem",
-                        }}
-                      >
-                        <img
-                          src={green}
-                          alt="Normal Priority"
-                          width="16"
-                          height="16"
-                        />
-                        Normal
-                      </Box>
-                    </MenuItem>
-                    <MenuItem value="High">
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "0.5rem",
-                        }}
-                      >
-                        <img
-                          src={red}
-                          alt="High Priority"
-                          width="16"
-                          height="16"
-                        />
-                        High
-                      </Box>
-                    </MenuItem>
-                  </Select>
-                  {errors.priority && (
-                    <Typography color="error" fontSize="12px" mt="4px">
-                      {errors.priority}
-                    </Typography>
-                  )}
-                </FormControl>
-              </Box>
-              {/* Status Dropdown */}
-              <Box
-                width={{ md: "45%", xs: "100%" }}
-                padding={"1rem"}
-                display={"flex"}
-                flexDirection={"column"}
-                marginTop={"-1rem"}
-              >
-                <p>Status</p>
-                <FormControl sx={{ minWidth: 120 }}>
-                  <InputLabel id="status-label" sx={{ marginTop: "-0.5rem" }}>
-                    Select Status
-                  </InputLabel>
-                  <Select
-                    labelId="status-label"
-                    id="status-select"
-                    value={formData.status}
-                    name="status"
-                    size="small"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value="">
-                      <em>Select Status</em>
-                    </MenuItem>
-                    <MenuItem value="Pending">
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "0.5rem",
-                        }}
-                      >
-                        <Box
-                          sx={{
-                            width: 12,
-                            height: 12,
-                            borderRadius: "50%",
-                            bgcolor: "#FFB72A",
-                          }}
-                        />
-                        Pending
-                      </Box>
-                    </MenuItem>
-                    <MenuItem value="Active">
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "0.5rem",
-                        }}
-                      >
-                        <Box
-                          sx={{
-                            width: 12,
-                            height: 12,
-                            borderRadius: "50%",
-                            bgcolor: "#74D453",
-                          }}
-                        />
-                        Active
-                      </Box>
-                    </MenuItem>
-                    <MenuItem value="Closed">
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "0.5rem",
-                        }}
-                      >
-                        <Box
-                          sx={{
-                            width: 12,
-                            height: 12,
-                            borderRadius: "50%",
-                            bgcolor: "#F25353",
-                          }}
-                        />
-                        Closed
-                      </Box>
-                    </MenuItem>
-                  </Select>
-                  {errors.status && (
-                    <Typography color="error" fontSize="12px" mt="4px">
-                      {errors.status}
-                    </Typography>
-                  )}
-                </FormControl>
-              </Box>
-              {/* Assignee Dropdown */}
-              <Box
-                width={{ md: "45%", xs: "100%" }}
-                padding={"1rem"}
-                display={"flex"}
-                flexDirection={"column"}
-                marginTop={"-1rem"}
-              >
-                <p>Assignee</p>
-                <FormControl sx={{ minWidth: 120 }}>
-                  <InputLabel id="assignee-label" sx={{ marginTop: "-0.5rem" }}>
-                    Select
-                  </InputLabel>
-                  <Select
-                    labelId="assignee-label"
-                    id="assignee-select"
-                    value={formData.assignee}
-                    name="assignee"
-                    size="small"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value="">
-                      <em>Assignee</em>
-                    </MenuItem>
-                    <MenuItem value="Syed Muqarrab">Syed Muqarrab</MenuItem>
-                    <MenuItem value="Saud Haris">Saud Haris</MenuItem>
-                    <MenuItem value="Saeed">Saeed</MenuItem>
-                  </Select>
-                  {errors.assignee && (
-                    <Typography color="error" fontSize="12px" mt="4px">
-                      {errors.assignee}
-                    </Typography>
-                  )}
-                </FormControl>
-              </Box>
-              {/* Description */}
-              <Box
-                width={{ md: "45%", xs: "100%" }}
-                padding={"1rem"}
-                display={"flex"}
-                flexDirection={"column"}
-                marginTop={"-1rem"}
-              >
-                <p>Description</p>
-                <TextField
-                  label="Enter description"
-                  size="small"
-                  fullWidth
-                  name="description"
-                  value={formData.description}
-                  onChange={handleChange}
-                  error={!!errors.description}
-                  helperText={errors.description}
-                />
-              </Box>
+              <p>Title</p>
+              <TextField
+                label="Title"
+                size="small"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                error={!!errors.name}
+                helperText={errors.name}
+              />
             </Box>
             <Box
+              width={{ md: "45%", xs: "100%" }}
+              padding={"1rem"}
               display={"flex"}
-              justifyContent={"end"}
-              sx={{
-                margin: {
-                  xs: "1rem 0rem 0rem 0rem",
-                  md: "5rem 4rem 0rem 0rem",
-                },
-              }}
+              flexDirection={"column"}
+              // marginTop={"0.4rem"}
             >
-              <Button
-                type="submit"
-                sx={{
-                  textTransform: "capitalize",
-                  borderRadius: "10px",
-                  padding: "0.5rem 3rem",
-                  width: { xs: "100%", sm: "auto" },
-                  fontSize: "15px",
-                  fontFamily: "Poppins",
-                  background: "#546FFF",
-                  color: "#fff",
-                }}
-              >
-                Create Task
-              </Button>
+              <p style={{ marginBottom: "0.2rem" }}>Due Date</p>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={["DatePicker"]}>
+                  <DatePicker
+                    sx={{
+                      width: "100%",
+                    }}
+                    minDate={dayjs().startOf("year")} // Disables past years
+                    shouldDisableDate={(date) => {
+                      return dayjs(date).isBefore(dayjs(), "day"); // Disable past dates
+                    }}
+                    name="due_date"
+                    value={formData.duedate}
+                    onChange={(date) => {
+                      setFormData({ ...formData, duedate: date });
+                    }}
+                    // disableOpenPicker
+                    slotProps={{
+                      textField: {
+                        size: "small",
+                        readOnly: true,
+                      },
+                    }}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </Box>
+
+            {/* Priority Dropdown */}
+            <Box
+              width={{ md: "45%", xs: "100%" }}
+              padding={"1rem"}
+              display={"flex"}
+              flexDirection={"column"}
+              marginTop={"-1rem"}
+            >
+              <p>Priority</p>
+              <FormControl sx={{ minWidth: 120 }}>
+                <InputLabel id="priority-label" sx={{ marginTop: "-0.5rem" }}>
+                  Select
+                </InputLabel>
+                <Select
+                  labelId="priority-label"
+                  id="priority-select"
+                  value={formData.priority}
+                  name="priority"
+                  size="small"
+                  onChange={handleChange}
+                >
+                  <MenuItem value="">
+                    <em>Priority</em>
+                  </MenuItem>
+                  <MenuItem value="Low">
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                      }}
+                    >
+                      <img
+                        src={yellow}
+                        alt="Low Priority"
+                        width="16"
+                        height="16"
+                      />
+                      Low
+                    </Box>
+                  </MenuItem>
+                  <MenuItem value="Normal">
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                      }}
+                    >
+                      <img
+                        src={green}
+                        alt="Normal Priority"
+                        width="16"
+                        height="16"
+                      />
+                      Normal
+                    </Box>
+                  </MenuItem>
+                  <MenuItem value="High">
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                      }}
+                    >
+                      <img
+                        src={red}
+                        alt="High Priority"
+                        width="16"
+                        height="16"
+                      />
+                      High
+                    </Box>
+                  </MenuItem>
+                </Select>
+                {errors.priority && (
+                  <Typography color="error" fontSize="12px" mt="4px">
+                    {errors.priority}
+                  </Typography>
+                )}
+              </FormControl>
+            </Box>
+            {/* Status Dropdown */}
+            <Box
+              width={{ md: "45%", xs: "100%" }}
+              padding={"1rem"}
+              display={"flex"}
+              flexDirection={"column"}
+              marginTop={"-1rem"}
+            >
+              <p>Status</p>
+              <FormControl sx={{ minWidth: 120 }}>
+                <InputLabel id="status-label" sx={{ marginTop: "-0.5rem" }}>
+                  Select Status
+                </InputLabel>
+                <Select
+                  labelId="status-label"
+                  id="status-select"
+                  value={formData.status}
+                  name="status"
+                  size="small"
+                  onChange={handleChange}
+                >
+                  <MenuItem value="">
+                    <em>Select Status</em>
+                  </MenuItem>
+                  <MenuItem value="Pending">
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          width: 12,
+                          height: 12,
+                          borderRadius: "50%",
+                          bgcolor: "#FFB72A",
+                        }}
+                      />
+                      Pending
+                    </Box>
+                  </MenuItem>
+                  <MenuItem value="Active">
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          width: 12,
+                          height: 12,
+                          borderRadius: "50%",
+                          bgcolor: "#74D453",
+                        }}
+                      />
+                      Active
+                    </Box>
+                  </MenuItem>
+                  <MenuItem value="Closed">
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          width: 12,
+                          height: 12,
+                          borderRadius: "50%",
+                          bgcolor: "#F25353",
+                        }}
+                      />
+                      Closed
+                    </Box>
+                  </MenuItem>
+                </Select>
+                {errors.status && (
+                  <Typography color="error" fontSize="12px" mt="4px">
+                    {errors.status}
+                  </Typography>
+                )}
+              </FormControl>
+            </Box>
+            {/* Assignee Dropdown */}
+            <Box
+              width={{ md: "45%", xs: "100%" }}
+              padding={"1rem"}
+              display={"flex"}
+              flexDirection={"column"}
+              marginTop={"-1rem"}
+            >
+              <p>Assignee</p>
+              <FormControl sx={{ minWidth: 120 }}>
+                <InputLabel id="assignee-label" sx={{ marginTop: "-0.5rem" }}>
+                  Select
+                </InputLabel>
+                <Select
+                  labelId="assignee-label"
+                  id="assignee-select"
+                  value={formData.assignee}
+                  name="assignee"
+                  size="small"
+                  onChange={handleChange}
+                >
+                  <MenuItem value="">
+                    <em>Assignee</em>
+                  </MenuItem>
+                  <MenuItem value="Syed Muqarrab">Syed Muqarrab</MenuItem>
+                  <MenuItem value="Saud Haris">Saud Haris</MenuItem>
+                  <MenuItem value="Saeed">Saeed</MenuItem>
+                </Select>
+                {errors.assignee && (
+                  <Typography color="error" fontSize="12px" mt="4px">
+                    {errors.assignee}
+                  </Typography>
+                )}
+              </FormControl>
+            </Box>
+            {/* Description */}
+            <Box
+              width={{ md: "45%", xs: "100%" }}
+              padding={"1rem"}
+              display={"flex"}
+              flexDirection={"column"}
+              marginTop={"-1rem"}
+            >
+              <p>Description</p>
+              <TextField
+                label="Enter description"
+                size="small"
+                fullWidth
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                error={!!errors.description}
+                helperText={errors.description}
+              />
             </Box>
           </Box>
-
-          {/* Create Task Button */}
+          <Box display={"flex"} justifyContent={"end"} marginTop={"2rem"}>
+            <Button
+              type="submit"
+              sx={{
+                textTransform: "capitalize",
+                borderRadius: "10px",
+                padding: "0.5rem 3rem",
+                width: { xs: "100%", md: "auto" },
+                fontSize: "15px",
+                fontFamily: "Poppins",
+                background: "#546FFF",
+                color: "#fff",
+              }}
+            >
+              Create Task
+            </Button>
+          </Box>
         </Box>
+
+        {/* Create Task Button */}
       </Box>
     </Box>
   );

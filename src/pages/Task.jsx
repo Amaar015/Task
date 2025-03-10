@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Task = () => {
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") === "true") {
       navigate("/dashboard/task");
@@ -14,12 +14,12 @@ const Task = () => {
       navigate("/login");
     }
   }, [navigate]);
-  
+
   return (
     <Box
       flexGrow={1}
       width={{ xs: "100%" }}
-      height={{ sm: "auto", xs: "100%" }}
+      height={{ sm: "100vh", xs: "100%" }}
       display={"flex"}
       flexDirection={"column"}
     >
@@ -35,19 +35,20 @@ const Task = () => {
       >
         <Box
           width={{ sm: "95%", xs: "100%" }}
-          height={{ sm: "95%", xs: "100%" }}
+          height={{ sm: "90%", xs: "100%" }}
+          padding={"1rem"}
         >
           <Box
             display={"flex"}
             justifyContent={{ sm: "end", xs: "center" }}
-            sx={{ marginRight: { md: "2rem", xs: "0rem" }, marginTop: "1rem" }}
+            sx={{ marginTop: "1rem" }}
           >
             <Button
               sx={{
                 textTransform: "capitalize",
                 borderRadius: "10px",
                 padding: "0.5rem 3rem",
-                width: { xs: "90%", sm: "auto" },
+                width: { xs: "100%", sm: "auto" },
                 fontSize: "15px",
                 fontFamily: "Poppins",
                 background: "#546FFF",
