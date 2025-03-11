@@ -115,8 +115,9 @@ export default function AccessibleTable() {
       }}
     >
       <Table
+        // size="small"
         sx={{
-          width: "100%",
+          // width: "100%",
           // On xs devices, remove minWidth and force a fixed table layout
           tableLayout: { xs: "fixed", sm: "auto" },
           minWidth: { xs: 0, sm: 650 },
@@ -163,11 +164,11 @@ export default function AccessibleTable() {
                   width: {
                     xs: "80%",
                     sm: "auto",
-                    fontSize: "14px",
-                    fontWeight: "600",
-                    color: "#546FFF",
-                    cursor: "pointer",
                   },
+                  fontSize: "14px",
+                  fontWeight: "600",
+                  color: "#546FFF",
+                  cursor: "pointer",
                 }}
               >
                 {row.name}

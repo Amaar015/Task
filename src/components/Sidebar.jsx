@@ -9,11 +9,11 @@ const Sidebar = () => {
       display={{ sm: "flex", xs: "none" }}
       flexDirection={"column"}
       alignItems={"center"}
-      width={{ md: "250px", xs: "60px" }}
-      height={"99.7%"}
+      width={{ md: "280px", xs: "60px" }}
+      height={"100%"}
       gap={"0.5rem"}
     >
-      <div style={{ margin: "2rem" }}>
+      <div style={{ padding:"1rem" }}>
         <Logo />
       </div>
       <Link
@@ -30,6 +30,7 @@ const Sidebar = () => {
         bgcolor="#F5F5F7"
         fontFamily={"Plus Jakarta Sans"}
         href="/dashboard/task"
+        marginTop={'1rem'}
       >
         <PiBookOpenTextLight style={{ fontSize: "1.5rem" }} />
         <Typography display={{ md: "inline-block", xs: "none" }}>

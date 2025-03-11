@@ -99,8 +99,8 @@ export const Navbar = ({ title }) => {
 
   return (
     <Box
-      width={"100%"}
-      padding={"1rem 0rem 1rem 2rem"}
+      // width={{ xs: "90%", sm: "100%" }}
+      padding={"1rem 2rem"}
       display={"flex"}
       alignItems={"center"}
       justifyContent={"space-between"}
@@ -130,7 +130,7 @@ export const Navbar = ({ title }) => {
         Taska
       </Typography>
       <Box
-        margin={{ sm: "0 2rem 0 0", xs: "0 3rem 0rem 0rem" }}
+        margin={{ sm: "0 2rem 0 0", xs: "0 0rem 0rem 0rem" }}
         display={"flex"}
         alignItems={"center"}
         gap={"0.5rem"}
@@ -146,7 +146,7 @@ export const Navbar = ({ title }) => {
           {title}
         </Typography>
       </Box>
-      <Box marginRight={"4rem"} display={{ sm: "inline-block", xs: "none" }}>
+      <Box  display={{ sm: "inline-block", xs: "none" }}>
         <Buttons title={"Log Out"} padding={"0.5rem 1.5rem"} methods={logout} />
       </Box>
     </Box>

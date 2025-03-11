@@ -137,34 +137,32 @@ const CreateTask = () => {
   };
 
   return (
-    <Box
-      flexGrow={1}
-      width={{ xs: "100%" }}
-      display={"flex"}
-      flexDirection={"column"}
-    >
+    <Box flexGrow={1} display={"flex"} flexDirection={"column"}>
       <Navbar title={"Create New Task"} />
       <Box
         sx={{
-          bgcolor: "#F5F5F7",
+          bgcolor: { sm: "#F5F5F7", xs: "#ffffff" },
           flexGrow: "1",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          padding: "2rem",
+          padding:{ sm: "1rem 2rem", xs: "1rem" },
+        
         }}
       >
         <Box
-          height={"100%"}
-          width={"100%"}
-          bgcolor={"#fff"}
-          component={"form"}
-          padding={'1rem 2rem'}
+          height="80vh" // Set a fixed height or use maxHeight
+          width="100%"
+          bgcolor="#fff"
+          component="form"
+          padding={{ sm: "1rem 2rem", xs: "1" }}
+          overflow="auto" // Enables scrolling when content overflows
           onSubmit={handleSubmit}
         >
           <Box
             display={"flex"}
             flexWrap={"wrap"}
+            justifyContent={"space-between"}
             alignItems={"center"}
           >
             <Box
@@ -448,7 +446,15 @@ const CreateTask = () => {
               />
             </Box>
           </Box>
-          <Box display={"flex"} justifyContent={"end"} marginTop={"2rem"}>
+          <Box
+            display={"flex"}
+            justifyContent={"end"}
+            margin={{
+              lg: "6rem 1rem 0rem 0rem",
+              md: "3rem 1rem 0rem 0rem",
+              xs: "2rem 0rem 0rem 0rem",
+            }}
+          >
             <Button
               type="submit"
               sx={{

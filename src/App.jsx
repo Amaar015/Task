@@ -14,11 +14,11 @@ const Layout = () => {
   return (
     <Box
       display={"flex"}
-      width={"100vw"}
+      width={"100%"}
       height={{ xs: "100%", sm: "100vh" }}
       minHeight={"100vh"}
       minWidth={"100vw"}
-      overflow={{ md: "hidden" }}
+      overflow={"hidden"}
     >
       <Sidebar />
       <Outlet />

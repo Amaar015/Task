@@ -220,7 +220,7 @@ const Signup = () => {
 
           {/* Select Role */}
           <FormControl fullWidth variant="outlined" error={!!errors.role}>
-            <InputLabel>Select Role</InputLabel>
+            <InputLabel sx={{ marginTop: "-0.5rem" }}>Select Role</InputLabel>
             <Select
               value={formData.role}
               onChange={handleChange}
@@ -297,7 +297,7 @@ const Signup = () => {
             fontFamily: "Poppins",
           }}
         >
-          Register
+          Sign up
         </Button>
 
         {/* Sign Up Link */}

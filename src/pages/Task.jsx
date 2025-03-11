@@ -17,7 +17,6 @@ const Task = () => {
 
   return (
     <Box
-      flexGrow={1}
       width={{ xs: "100%" }}
       height={{ sm: "100vh", xs: "100%" }}
       display={"flex"}
@@ -28,9 +27,15 @@ const Task = () => {
         sx={{
           bgcolor: { sm: "#F5F5F7", xs: "#fff" },
           flexGrow: "1",
+          width: "100%",
+          height: "100%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          padding: "1rem 0rem",
+          maxHeight: "100vh",
+          overflowY: "scroll",
+          overflowX: "hidden",
         }}
       >
         <Box
@@ -38,11 +43,7 @@ const Task = () => {
           height={{ sm: "90%", xs: "100%" }}
           padding={"1rem"}
         >
-          <Box
-            display={"flex"}
-            justifyContent={{ sm: "end", xs: "center" }}
-            sx={{ marginTop: "1rem" }}
-          >
+          <Box display={"flex"} justifyContent={{ sm: "end", xs: "center" }}>
             <Button
               sx={{
                 textTransform: "capitalize",
