@@ -4,6 +4,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import bg from "../assets/login.png";
 import { toast } from "react-toastify";
 import { EndAdornment, LoginForm, Logo } from "../components/Components";
+import axios from "axios";
 const Login = () => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
@@ -68,23 +69,30 @@ const Login = () => {
       return;
     }
     try {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (!user) {
-        toast.error("User not Found!");
-        return;
-      }
-      if (
-        user.email === formData.email &&
-        user.password === formData.password
-      ) {
-        toast.success("Login Successfull");
+      const login = await axios.post("/zetsol/auth/login", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (login.data.success) {
+        toast.success(login.data.message);
+        console.log(login.data.users);
         localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("token", login.data.token);
+        localStorage.setItem("user", JSON.stringify(login.data.users));
         navigate("/dashboard/task");
       } else {
-        toast.error("Invalid Email & Password");
+        toast.error(login.data.message);
       }
     } catch (error) {
-      toast.error("Something went wrong");
+      console.log(error);
+      if (error.response) {
+        toast.error(error.response.data.message || "Something went wrong!");
+      } else if (error.request) {
+        toast.error("No response from server!");
+      } else {
+        toast.error("Something went wrong!");
+      }
     }
   };
 

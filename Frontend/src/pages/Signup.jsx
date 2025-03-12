@@ -23,7 +23,7 @@ const Signup = () => {
 
   const [formData, setFormData] = useState({
     name: "",
-    role: "", // Single role selection
+    role: "",
     email: "",
     password: "",
   });
@@ -134,24 +134,25 @@ const Signup = () => {
     }
 
     try {
-      const register = await axios.post(
-        "https://reqres.in/api/users",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (register.data) {
-        localStorage.setItem("user", JSON.stringify(formData));
+      const register = await axios.post("/zetsol/auth/signup", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (register.data.success) {
+        toast.success(register.data.message);
         navigate("/login");
-        toast.success("User Register Sucessfully");
       } else {
-        toast.error("User Registeration Failed");
+        toast.error(register.data.message);
       }
     } catch (error) {
-      toast.error("Something went wrong");
+      if (error.response) {
+        toast.error(error.response.data.message || "Something went wrong!");
+      } else if (error.request) {
+        toast.error("No response from server!");
+      } else {
+        toast.error("Something went wrong!");
+      }
     }
   };
 

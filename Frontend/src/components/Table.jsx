@@ -17,41 +17,13 @@ import green from "../assets/green.png";
 import red from "../assets/red.png";
 import dayjs from "dayjs";
 import { ExistingTask } from "../data";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function AccessibleTable() {
   //   menu
-  const [task, setTask] = React.useState(
-    localStorage.getItem("tasks")
-      ? JSON.parse(localStorage.getItem("tasks"))
-      : ExistingTask
-  );
-
-  // React.useEffect(() => {
-  //   if (localStorage.getItem("task")) {
-  //     setTask(JSON.parse(localStorage.getItem("task")));
-  //   }
-  // }, []);
-
-  const [tasks, setTasks] = React.useState(
-    task.sort((a, b) => new Date(b.id) - new Date(a.id))
-  );
+  const [task, setTask] = React.useState();
   const [selectedRow, setSelectedRow] = React.useState(null);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const [anchorEl1, setAnchorEl1] = React.useState(null);
-  const open1 = Boolean(anchorEl1);
-  const handleClick1 = (event) => {
-    setAnchorEl1(event.currentTarget);
-  };
-  const handleClose1 = () => {
-    setAnchorEl1(null);
-  };
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
@@ -65,23 +37,10 @@ export default function AccessibleTable() {
     setPage(0);
   };
   // Slice the data based on pagination
-  const paginatedRows = tasks.slice(
+  const paginatedRows = task?.slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
-  const uniquePriorities = tasks.reduce((unique, current) => {
-    if (!unique.some((item) => item.priority === current.priority)) {
-      unique.push(current);
-    }
-    return unique;
-  }, []);
-
-  const uniqueStatus = tasks.reduce((unique, current) => {
-    if (!unique.some((item) => item.status === current.status)) {
-      unique.push(current);
-    }
-    return unique;
-  }, []);
 
   //    Modal
   const [openModal, setOpenModal] = React.useState(false);
@@ -96,14 +55,38 @@ export default function AccessibleTable() {
     setSelectedRow(null);
   };
 
-  const deleteTask = (id) => {
-    const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  React.useEffect(() => {
+    const getTask = async () => {
+      try {
+        const tasks = await axios.get(
+          `/zetsol/task/get-tasks?assignedBy=${
+            JSON.parse(localStorage.getItem("user"))?.name
+          }`,
+          {
+            headers: {
+              authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        setTask(tasks.data.task);
+      } catch (error) {}
+    };
+    getTask();
+  });
 
-    const updatedTasks = storedTasks.filter((task) => task.id !== id);
-
-    setTasks(updatedTasks);
-
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+  const deleteTask = async (id) => {
+    try {
+      const deleted = await axios.delete(`/zetsol/task/delete-task/${id}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (deleted.data.success) {
+        toast.success("Task deleted");
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    }
   };
 
   return (
@@ -152,7 +135,7 @@ export default function AccessibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {paginatedRows.map((row) => (
+          {paginatedRows?.map((row) => (
             <TableRow key={row.id}>
               <TableCell
                 onClick={() => {
@@ -171,27 +154,20 @@ export default function AccessibleTable() {
                   cursor: "pointer",
                 }}
               >
-                {row.name}
+                {row.title}
               </TableCell>
               <TableCell sx={{ display: { xs: "none", sm: "table-cell" } }}>
-                {row.duedate
-                  ? dayjs(row.duedate).format("YYYY-MM-DD")
-                  : "No Due Date"}
+                {dayjs(row.dueDate).format("YYYY-MM-DD")}
               </TableCell>
               <TableCell sx={{ display: { xs: "none", sm: "table-cell" } }}>
                 {row.assignee}
               </TableCell>
               <TableCell sx={{ display: { xs: "none", sm: "table-cell" } }}>
                 <Box
-                  aria-controls={open ? "basic-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? "true" : undefined}
-                  onClick={handleClick}
                   sx={{
                     display: "flex",
                     alignItems: "center",
                     gap: "0.5rem",
-                    cursor: "pointer",
                   }}
                 >
                   <img
@@ -209,59 +185,11 @@ export default function AccessibleTable() {
                   {row.priority}
                 </Box>
               </TableCell>
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": "basic-button",
-                }}
-                PaperProps={{
-                  elevation: 0,
-                  sx: {
-                    boxShadow: "none", // Remove box shadow
-                    width: "200px", // Set width to 200px
-                  },
-                }}
-              >
-                <MenuItem>Priority</MenuItem>
-                <Divider />
-                {uniquePriorities.map((taskss) => (
-                  <Box key={taskss.id}>
-                    <MenuItem onClick={handleClose}>
-                      <Box
-                        aria-controls={open ? "basic-menu" : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? "true" : undefined}
-                        onClick={handleClick}
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "0.5rem",
-                        }}
-                      >
-                        <img
-                          src={taskss.image}
-                          alt="Low Priority"
-                          width="16"
-                          height="16"
-                        />
-                        {taskss.priority}
-                      </Box>
-                    </MenuItem>
-                    <Divider />
-                  </Box>
-                ))}
-              </Menu>
+
               <TableCell
                 sx={{ display: { xs: "none", sm: "table-cell" }, width: "0px" }}
               >
                 <Box
-                  aria-controls={open1 ? "basic-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open1 ? "true" : undefined}
-                  onClick={handleClick1}
                   sx={{
                     bgcolor:
                       row.status === "Active"
@@ -272,59 +200,10 @@ export default function AccessibleTable() {
                     padding: "0.3rem 0.8rem",
                     borderRadius: "4px",
                     color: "#fff",
-                    cursor: "pointer",
                   }}
                 >
                   {row.status}
                 </Box>
-                <Menu
-                  id="basic-menu"
-                  anchorEl={anchorEl1}
-                  open={open1}
-                  onClose={handleClose1}
-                  MenuListProps={{
-                    "aria-labelledby": "basic-button",
-                  }}
-                  PaperProps={{
-                    elevation: 0,
-                    sx: {
-                      boxShadow: "none", // Remove box shadow
-                      width: "200px", // Set width to 200px
-                    },
-                  }}
-                >
-                  <MenuItem>Status</MenuItem>
-                  <Divider />
-                  {uniqueStatus.map((tasks) => (
-                    <Box key={tasks.id}>
-                      <MenuItem onClick={handleClose1}>
-                        <Box
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.5rem",
-                          }}
-                        >
-                          <Box
-                            sx={{
-                              width: 12,
-                              height: 12,
-                              borderRadius: "50%",
-                              bgcolor:
-                                tasks.status === "Active"
-                                  ? "#75D653"
-                                  : tasks.status === "Closed"
-                                  ? "#F25353"
-                                  : "#FFB72B",
-                            }}
-                          />
-                          {tasks.status}
-                        </Box>{" "}
-                      </MenuItem>
-                      <Divider />
-                    </Box>
-                  ))}
-                </Menu>
               </TableCell>
 
               <TableCell sx={{ width: { xs: "20%", sm: "auto" } }}>
@@ -335,7 +214,7 @@ export default function AccessibleTable() {
                     color: "#F25353",
                   }}
                   onClick={() => {
-                    deleteTask(row.id);
+                    deleteTask(row._id);
                   }}
                 >
                   <FiTrash2 />
@@ -348,7 +227,7 @@ export default function AccessibleTable() {
       <TablePagination
         rowsPerPageOptions={[6]}
         component="div"
-        count={tasks.length}
+        count={task?.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

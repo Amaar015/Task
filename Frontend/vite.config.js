@@ -1,7 +1,15 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc"; // Use this if you are using SWC for faster builds
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-})
+  server: {
+    proxy: {
+      "/zetsol": {
+        target: "http://localhost:3000", // Your backend server
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
+});

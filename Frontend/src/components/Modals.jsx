@@ -4,6 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import yellow from "../assets/yellow.png";
 import green from "../assets/green.png";
 import red from "../assets/red.png";
+import dayjs from "dayjs";
 const modalStyle = {
   position: "absolute",
   top: "50%",
@@ -49,7 +50,7 @@ const Modals = ({ HandleCLose, row }) => {
         color="#546FFF"
         margin={"2rem 0rem"}
       >
-        {row.name}
+        {row.title}
       </Typography>
       <Box
         display={"flex"}
@@ -79,7 +80,7 @@ const Modals = ({ HandleCLose, row }) => {
             fontSize={"15px"}
             fontWeight={500}
           >
-            {row.duedate}
+            {dayjs(row.dueDate).format("YYYY-MM-DD")}
           </Typography>
         </Box>
         <Box

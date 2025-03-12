@@ -21,20 +21,22 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ExistingTask } from "../data.js";
+import axios from "axios";
 const CreateTask = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     id: Math.floor(Math.random() * 1000),
-    name: "",
-    duedate: dayjs(),
+    title: "",
+    dueDate: dayjs(),
     priority: "",
     status: "",
     assignee: "",
     description: "",
+    assignedBy: JSON.parse(localStorage.getItem("user"))?.name,
   });
   const [errors, setErrors] = useState({
-    name: "",
-    duedate: "",
+    title: "",
+    dueDate: "",
     priority: "",
     status: "",
     assignee: "",
@@ -53,14 +55,14 @@ const CreateTask = () => {
     const { name, value } = e.target;
 
     setFormData({ ...formData, [name]: value });
-    if (name === "name") {
+    if (name === "title") {
       if (!/^.{3,}$/.test(value)) {
         setErrors((prev) => ({
           ...prev,
-          name: "Title Should be more than 3 characters",
+          title: "Title Should be more than 3 characters",
         }));
       } else {
-        setErrors((prev) => ({ ...prev, name: "" }));
+        setErrors((prev) => ({ ...prev, title: "" }));
       }
     }
     if (name === "description") {
@@ -87,14 +89,14 @@ const CreateTask = () => {
         status: value ? "" : "This field is required",
       }));
     }
-    if (name === "due_date") {
+    if (name === "dueDate") {
       setErrors((prev) => ({
         ...prev,
-        duedate: value ? "" : "Due date is required",
+        dueDate: value ? "" : "Due date is required",
       }));
     }
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     let newErrors = {};
@@ -109,16 +111,16 @@ const CreateTask = () => {
       return;
     }
     if (
-      !formData.name ||
+      !formData.title ||
       !formData.assignee ||
       !formData.description ||
-      !formData.duedate ||
+      !formData.dueDate ||
       !formData.priority ||
       !formData.status ||
-      errors.name ||
+      errors.title ||
       errors.assignee ||
       errors.description ||
-      errors.duedate ||
+      errors.dueDate ||
       errors.priority ||
       errors.status
     ) {
@@ -126,14 +128,29 @@ const CreateTask = () => {
       return;
     }
 
-    const existingTasks =
-      JSON.parse(localStorage.getItem("tasks")) || ExistingTask;
-    const updatedTasks = [...existingTasks, formData];
-
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-
-    navigate("/dashboard/task");
-    toast.success("Task Created Successfully");
+    try {
+      const task = await axios.post("/zetsol/task/create-task", formData, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (task.data.success) {
+        navigate("/dashboard/task");
+        toast.success("Task Created Successfully");
+      } else {
+        toast.error(login.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.response) {
+        toast.error(error.response.data.message || "Something went wrong!");
+      } else if (error.request) {
+        toast.error("No response from server!");
+      } else {
+        toast.error("Something went wrong!");
+      }
+    }
   };
 
   return (
@@ -146,8 +163,7 @@ const CreateTask = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          padding:{ sm: "1rem 2rem", xs: "1rem" },
-        
+          padding: { sm: "1rem 2rem", xs: "1rem" },
         }}
       >
         <Box
@@ -176,11 +192,11 @@ const CreateTask = () => {
               <TextField
                 label="Title"
                 size="small"
-                name="name"
-                value={formData.name}
+                name="title"
+                value={formData.title}
                 onChange={handleChange}
-                error={!!errors.name}
-                helperText={errors.name}
+                error={!!errors.title}
+                helperText={errors.title}
               />
             </Box>
             <Box
@@ -201,10 +217,10 @@ const CreateTask = () => {
                     shouldDisableDate={(date) => {
                       return dayjs(date).isBefore(dayjs(), "day"); // Disable past dates
                     }}
-                    name="due_date"
-                    value={formData.duedate}
+                    name="dueDate"
+                    value={formData.dueDate}
                     onChange={(date) => {
-                      setFormData({ ...formData, duedate: date });
+                      setFormData({ ...formData, dueDate: date });
                     }}
                     // disableOpenPicker
                     slotProps={{
