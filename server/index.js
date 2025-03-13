@@ -13,6 +13,9 @@ app.use(cors());
 app.use(express.json());
 connectDB();
 
+app.get("/", (req, res) => {
+  res.json({ message: "Hello from Vercel Express!" });
+});
 app.use("/zetsol/auth", authRoutes);
 app.use("/zetsol/task", taskRoute);
 
