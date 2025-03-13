@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/zetsol": {
-        target: "http://localhost:3000", // Your backend server
+        target: "https://react-backend-one-woad.vercel.app/", // Your backend server
         changeOrigin: true,
         secure: false,
       },
