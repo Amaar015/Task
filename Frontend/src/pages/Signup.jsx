@@ -146,6 +146,7 @@ const Signup = () => {
         toast.error(register.data.message);
       }
     } catch (error) {
+      console.log(error);
       if (error.response) {
         toast.error(error.response.data.message || "Something went wrong!");
       } else if (error.request) {
