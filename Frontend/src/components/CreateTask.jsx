@@ -32,7 +32,7 @@ const CreateTask = () => {
     status: "",
     assignee: "",
     description: "",
-    assignedBy: JSON.parse(localStorage.getItem("user"))?.name,
+    assignedBy: JSON.parse(localStorage.getItem("user"))?.userId,
   });
   const [errors, setErrors] = useState({
     title: "",

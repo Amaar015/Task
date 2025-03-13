@@ -35,7 +35,10 @@ export const createTask = async (req, res) => {
 export const getTask = async (req, res) => {
   try {
     const { assignedBy } = req.query;
-    const Task = await task.find({ assignedBy }).sort({ createdAt: -1 });
+    const Task = await task
+      .find({ assignedBy })
+      .populate("assignedBy", "name")
+      .sort({ createdAt: -1 });
     if (!Task) {
       return res.status(400).json({
         message: "Task not exists",

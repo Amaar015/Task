@@ -27,7 +27,7 @@ export const loginController = async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({
         success: false,
-        message: "Invalid email or password",
+        message: "User not found!",
       });
     }
 
@@ -41,7 +41,12 @@ export const loginController = async (req, res) => {
       success: true,
       message: "Logged in successfully!",
       token,
-      users: { email: user.email, role: user.role, name: user.name },
+      users: {
+        userId: user._id,
+        email: user.email,
+        role: user.role,
+        name: user.name,
+      },
     });
   } catch (error) {
     console.error("Login Error:", error);

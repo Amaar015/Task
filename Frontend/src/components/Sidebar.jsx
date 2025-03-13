@@ -1,19 +1,65 @@
 import { Box, Link, Typography } from "@mui/material";
-import React from "react";
-import { Logo } from "./Components";
+import React, { useEffect, useState } from "react";
+import { Buttons, Logo } from "./Components";
 import { PiBookOpenTextLight } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
+  const [navbarState, setNavbarState] = useState(
+    JSON.parse(localStorage.getItem("navbarState")) || false
+  );
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const updatedState = JSON.parse(localStorage.getItem("navbarState"));
+      setNavbarState(updatedState);
+    };
+
+    const handleResize = () => {
+      setScreenSize(window.innerWidth);
+      setNavbarState(false);
+    };
+
+    window.addEventListener("navbarStateChange", handleStorageChange);
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+
+    return () => {
+      window.removeEventListener("navbarStateChange", handleStorageChange);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const logout = () => {
+    localStorage.clear();
+    navigate("/login");
+    toast.success("Logout Successfully!");
+  };
   return (
     <Box
       component={"div"}
-      display={{ sm: "flex", xs: "none" }}
+      position={screenSize < 600 ? "absolute" : "relative"}
+      display={
+        screenSize < 600 && navbarState
+          ? "flex"
+          : navbarState
+          ? "none"
+          : { sm: "flex", xs: "none" }
+      }
       flexDirection={"column"}
       alignItems={"center"}
-      width={{ md: "280px", xs: "60px" }}
+      width={{ md: "280px", xs: "200px" }}
       height={"100%"}
       gap={"0.5rem"}
+      bgcolor={screenSize < 600 ? "#fff" : "none"}
+      boxShadow={
+        screenSize < 600 ? " rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;" : "none"
+      }
+      zIndex={{ md: 0, xs: 99 }}
     >
-      <div style={{ padding:"1rem" }}>
+      <div style={{ padding: "1rem" }}>
         <Logo />
       </div>
       <Link
@@ -30,13 +76,18 @@ const Sidebar = () => {
         bgcolor="#F5F5F7"
         fontFamily={"Plus Jakarta Sans"}
         href="/dashboard/task"
-        marginTop={'1rem'}
+        marginTop={"1rem"}
       >
         <PiBookOpenTextLight style={{ fontSize: "1.5rem" }} />
-        <Typography display={{ md: "inline-block", xs: "none" }}>
+        <Typography
+          display={{ md: "inline-block", sm: "none", xs: "inline-block" }}
+        >
           Task
         </Typography>
       </Link>
+      <Box display={{ sm: "none", xs: "inline-block" }} marginTop={"1rem"}>
+        <Buttons title={"Log Out"} padding={"0.5rem 2rem"} methods={logout} />
+      </Box>
     </Box>
   );
 };

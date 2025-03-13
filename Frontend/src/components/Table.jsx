@@ -58,10 +58,9 @@ export default function AccessibleTable() {
   React.useEffect(() => {
     const getTask = async () => {
       try {
+        const userid = JSON.parse(localStorage.getItem("user"))?.userId;
         const tasks = await axios.get(
-          `/zetsol/task/get-tasks?assignedBy=${
-            JSON.parse(localStorage.getItem("user"))?.name
-          }`,
+          `/zetsol/task/get-tasks?assignedBy=${userid}`,
           {
             headers: {
               authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -69,10 +68,11 @@ export default function AccessibleTable() {
           }
         );
         setTask(tasks.data.task);
+        console.log(tasks.data.task);
       } catch (error) {}
     };
     getTask();
-  });
+  }, []);
 
   const deleteTask = async (id) => {
     try {

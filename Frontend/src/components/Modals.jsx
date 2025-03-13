@@ -198,7 +198,7 @@ const Modals = ({ HandleCLose, row }) => {
             fontSize={"15px"}
             fontWeight={500}
           >
-            {row.assignedBy}
+            {row?.assignedBy?.name}
           </Typography>
         </Box>
       </Box>
