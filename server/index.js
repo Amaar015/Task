@@ -20,5 +20,5 @@ app.use("/zetsol/auth", authRoutes);
 app.use("/zetsol/task", taskRoute);
 
 app.listen(port, () => {
-  console.log(`Server is running on ${port}`.bgCyan.white);
+  // console.log(`Server is running on ${port}`.bgCyan.white);
 });
